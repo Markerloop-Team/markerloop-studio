@@ -1,0 +1,852 @@
+{
+  "Text": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "group": {
+      "weight": "appearance"
+    },
+    "order": [
+      "children",
+      "variant",
+      "size",
+      "weight",
+      "wrap"
+    ],
+    "content": {
+      "children": true
+    }
+  },
+  "Badge": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "label": {
+      "tone": "Tone",
+      "variant": "Variant"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "Button": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "order": [
+      "children",
+      "variant",
+      "size",
+      "fullWidth"
+    ],
+    "content": {
+      "children": true
+    }
+  },
+  "Label": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "CardTitle": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Title"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "CardDescription": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Description"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "DialogTitle": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Title"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "DialogDescription": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Description"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "AlertDialogTitle": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Title"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "AlertDialogDescription": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Description"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "SheetTitle": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Title"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "SheetDescription": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Description"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "TableCaption": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Caption"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "TableHead": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "TableCell": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "Image": {
+    "label": {
+      "fit": "Fit",
+      "rounded": "Rounding",
+      "aspect": "Aspect ratio",
+      "src": "Source",
+      "alt": "Alt text"
+    },
+    "group": {
+      "fit": "appearance",
+      "rounded": "appearance",
+      "aspect": "layout",
+      "loading": "advanced"
+    },
+    "content": {
+      "src": true,
+      "alt": true
+    }
+  },
+  "Table": {
+    "group": {
+      "layout": "layout"
+    }
+  },
+  "FormItem": {
+    "group": {
+      "layout": "layout"
+    }
+  },
+  "SheetContent": {
+    "group": {
+      "side": "layout"
+    }
+  },
+  "ResizablePanelGroup": {
+    "group": {
+      "orientation": "layout"
+    }
+  },
+  "SearchField": {
+    "group": {
+      "ariaLabel": "advanced",
+      "clearLabel": "advanced"
+    },
+    "hide": [
+      "value"
+    ],
+    "content": {
+      "placeholder": false
+    }
+  },
+  "Select": {
+    "hide": [
+      "value"
+    ]
+  },
+  "Command": {
+    "hide": [
+      "value"
+    ],
+    "content": {
+      "label": false
+    }
+  },
+  "CommandInput": {
+    "hide": [
+      "value"
+    ],
+    "label": {
+      "placeholder": "Placeholder"
+    },
+    "content": {
+      "placeholder": false
+    }
+  },
+  "AvatarImage": {
+    "label": {
+      "src": "Source",
+      "alt": "Alt text"
+    },
+    "content": {
+      "src": true,
+      "alt": true
+    }
+  },
+  "Input": {
+    "label": {
+      "placeholder": "Placeholder"
+    },
+    "content": {
+      "placeholder": false
+    }
+  },
+  "Textarea": {
+    "label": {
+      "placeholder": "Placeholder"
+    },
+    "content": {
+      "placeholder": false
+    }
+  },
+  "InputGroupInput": {
+    "label": {
+      "placeholder": "Placeholder"
+    },
+    "content": {
+      "placeholder": false
+    }
+  },
+  "InputGroupTextarea": {
+    "label": {
+      "placeholder": "Placeholder"
+    },
+    "content": {
+      "placeholder": false
+    }
+  },
+  "ActionCardLink": {
+    "content": {
+      "title": true,
+      "description": true,
+      "href": true
+    }
+  },
+  "RowLink": {
+    "content": {
+      "href": true
+    }
+  },
+  "CommandList": {
+    "content": {
+      "label": false
+    }
+  },
+  "CommandDialog": {
+    "content": {
+      "title": false,
+      "description": false
+    }
+  },
+  "DataTable": {
+    "content": {
+      "searchPlaceholder": false
+    }
+  },
+  "IconGallery": {
+    "content": {
+      "title": false,
+      "description": false
+    }
+  },
+  "Alert": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Message"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "AvatarFallback": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Initials"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "Box": {
+    "props": {
+      "direction": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "layout",
+        "label": "Direction",
+        "enumValues": [
+          "row",
+          "column"
+        ]
+      },
+      "gap": {
+        "type": "number",
+        "editor": "number",
+        "group": "layout",
+        "label": "Gap"
+      },
+      "align": {
+        "type": "enum",
+        "editor": "select",
+        "group": "layout",
+        "label": "Cross-axis alignment",
+        "enumValues": [
+          "start",
+          "center",
+          "end",
+          "stretch",
+          "baseline"
+        ]
+      },
+      "justify": {
+        "type": "enum",
+        "editor": "select",
+        "group": "layout",
+        "label": "Main-axis alignment",
+        "enumValues": [
+          "start",
+          "center",
+          "end",
+          "between",
+          "around",
+          "evenly"
+        ]
+      },
+      "wrap": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "layout",
+        "label": "Wrap"
+      },
+      "fullWidth": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "layout",
+        "label": "Full width"
+      },
+      "fullHeight": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "layout",
+        "label": "Full height"
+      },
+      "grow": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "layout",
+        "label": "Grow"
+      },
+      "shrink": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "layout",
+        "label": "Shrink"
+      },
+      "textAlign": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "layout",
+        "label": "Text alignment",
+        "enumValues": [
+          "left",
+          "center",
+          "right"
+        ]
+      },
+      "padding": {
+        "type": "number",
+        "editor": "number",
+        "group": "layout",
+        "label": "Padding"
+      },
+      "columns": {
+        "type": "number",
+        "editor": "number",
+        "group": "layout",
+        "label": "Columns"
+      },
+      "mdColumns": {
+        "type": "number",
+        "editor": "number",
+        "group": "layout",
+        "label": "Columns — tablet"
+      },
+      "lgColumns": {
+        "type": "number",
+        "editor": "number",
+        "group": "layout",
+        "label": "Columns — desktop"
+      }
+    },
+    "content": {}
+  },
+  "CardAction": {
+    "noProps": true
+  },
+  "CardContent": {
+    "noProps": true
+  },
+  "CardFooter": {
+    "noProps": true
+  },
+  "CardHeader": {
+    "noProps": true
+  },
+  "Code": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Code"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "CommandEmpty": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Empty state text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "CommandItem": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Command name"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "CommandShortcut": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Shortcut"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "InputGroup": {
+    "noProps": true
+  },
+  "InputGroupButton": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "InputGroupText": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "ListHeader": {
+    "props": {
+      "title": {
+        "type": "string",
+        "editor": "text",
+        "group": "content",
+        "label": "Title",
+        "required": true
+      },
+      "description": {
+        "type": "string",
+        "editor": "text",
+        "group": "content",
+        "label": "Description"
+      }
+    },
+    "content": {
+      "title": true,
+      "description": true
+    }
+  },
+  "Sheet": {
+    "noProps": true
+  },
+  "SheetClose": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "SheetFooter": {
+    "noProps": true
+  },
+  "SheetHeader": {
+    "noProps": true
+  },
+  "SheetTrigger": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "TableBody": {
+    "noProps": true
+  },
+  "TableFooter": {
+    "noProps": true
+  },
+  "TableHeader": {
+    "noProps": true
+  },
+  "TableRow": {
+    "noProps": true
+  },
+  "TabsContent": {
+    "props": {
+      "value": {
+        "type": "string",
+        "editor": "text",
+        "group": "advanced",
+        "label": "Tab value"
+      }
+    },
+    "content": {}
+  },
+  "TabsTrigger": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Tab label"
+    },
+    "content": {
+      "children": true
+    },
+    "props": {
+      "value": {
+        "type": "string",
+        "editor": "text",
+        "group": "advanced",
+        "label": "Tab value"
+      }
+    }
+  },
+  "Toggle": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "ToggleGroup": {
+    "props": {
+      "type": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "advanced",
+        "label": "Selection mode",
+        "enumValues": [
+          "single",
+          "multiple"
+        ]
+      }
+    },
+    "content": {}
+  },
+  "ToggleGroupItem": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    },
+    "props": {
+      "value": {
+        "type": "string",
+        "editor": "text",
+        "group": "advanced",
+        "label": "Value"
+      }
+    }
+  },
+  "Tooltip": {
+    "noProps": true
+  },
+  "TooltipContent": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Tooltip text"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "Link": {
+    "content": {
+      "title": true,
+      "description": true,
+      "href": true
+    }
+  },
+  "Avatar": {
+    "props": {
+      "size": {
+        "type": "number",
+        "editor": "number",
+        "group": "appearance",
+        "label": "Size",
+        "default": 8,
+        "description": "Diameter step: 8, 10 or 12 (2, 2.5 or 3 rem)."
+      }
+    },
+    "content": {}
+  },
+  "ScrollArea": {
+    "props": {
+      "type": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "appearance",
+        "label": "Scrollbar visibility",
+        "enumValues": [
+          "hover",
+          "scroll",
+          "auto",
+          "always"
+        ],
+        "default": "hover"
+      },
+      "scrollHideDelay": {
+        "type": "number",
+        "editor": "number",
+        "group": "advanced",
+        "label": "Hide delay, ms",
+        "default": 600,
+        "description": "How long the scrollbar stays after the pointer leaves (types hover and scroll)."
+      }
+    },
+    "content": {}
+  },
+  "ScrollBar": {
+    "props": {
+      "orientation": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "layout",
+        "label": "Orientation",
+        "enumValues": [
+          "vertical",
+          "horizontal"
+        ],
+        "default": "vertical"
+      }
+    },
+    "content": {}
+  },
+  "Separator": {
+    "props": {
+      "orientation": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "layout",
+        "label": "Orientation",
+        "enumValues": [
+          "horizontal",
+          "vertical"
+        ],
+        "default": "horizontal"
+      },
+      "decorative": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "advanced",
+        "label": "Decorative",
+        "default": true,
+        "description": "Hidden from assistive technology; turn off when the line separates content semantically."
+      }
+    },
+    "content": {}
+  },
+  "Tabs": {
+    "props": {
+      "defaultValue": {
+        "type": "string",
+        "editor": "text",
+        "group": "state",
+        "label": "Open tab",
+        "description": "The value of the tab trigger that is open when the page loads."
+      },
+      "orientation": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "layout",
+        "label": "Orientation",
+        "enumValues": [
+          "horizontal",
+          "vertical"
+        ],
+        "default": "horizontal"
+      }
+    },
+    "content": {}
+  },
+  "TooltipTrigger": {
+    "noProps": true
+  },
+  "Accordion": {
+    "props": {
+      "type": {
+        "type": "enum",
+        "editor": "segmented",
+        "group": "state",
+        "label": "Open",
+        "description": "single: one item open at a time; multiple: each item opens on its own.",
+        "enumValues": [
+          "single",
+          "multiple"
+        ],
+        "default": "multiple"
+      },
+      "collapsible": {
+        "type": "boolean",
+        "editor": "switch",
+        "group": "state",
+        "label": "Can close the open item",
+        "description": "Only for single; ignored for multiple."
+      },
+      "defaultValue": {
+        "type": "string",
+        "editor": "text",
+        "group": "state",
+        "label": "Open item",
+        "description": "The value of the item that is open when the page loads (single)."
+      }
+    },
+    "content": {}
+  },
+  "AccordionItem": {
+    "props": {
+      "value": {
+        "type": "string",
+        "editor": "text",
+        "group": "advanced",
+        "label": "Item value"
+      }
+    },
+    "content": {}
+  },
+  "AccordionTrigger": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Title"
+    },
+    "content": {
+      "children": true
+    }
+  },
+  "AccordionContent": {
+    "children": {
+      "editor": "text",
+      "group": "content",
+      "label": "Text"
+    },
+    "content": {
+      "children": true
+    }
+  }
+}

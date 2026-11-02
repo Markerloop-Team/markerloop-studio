@@ -1,0 +1,275 @@
+{
+  "$comment": "SDL-658. Each section: promises it carries and its revisions. The last revision is current; its sha256 must equal the file. A text changes ONLY on a direct owner request: a new revision with a new version, effective_date and owner_request. apps/admin/scripts/validate-policy.mjs fails the build otherwise. A section may carry translations: { <locale>: { file, of_version, sha256 } } — the same text in another language (SDL-784). A translation is NOT a revision: it does not move version, effective_date or the edition; of_version names the Russian revision it renders and must equal the current one, and its sha256 must equal the file. Locales without a translation (kk) read the Russian text.",
+  "promise_keys": {
+    "workspace_limits": "Counting limits of a workspace are enforced: write stops at the limit, read/delete/published site keep working (EP-127 items 2, 10)",
+    "workspace_trash": "Workspace delete goes to the trash for trash_days, site goes dark at once, restore, purge within a day, Delete forever (EP-127 items 4, 10)",
+    "item_delete_confirm": "Page, record and file are deleted at once after a confirmation; a file in use shows where (SDL-650)",
+    "member_revocation": "A removed member loses access on the next request (gw-service internal/middleware/revocation.go, SDL-615)",
+    "workspace_invites": "Members can be invited into a workspace (collections invites, SDL-615 S9)",
+    "data_plane_no_cookies": "The public data plane never uses cookies; no visitor analytics (gw-service internal/middleware/data_cors.go)",
+    "names_registry": "Workspace name rules and the names registry (EP-127 items 8, 9; EP-113)",
+    "logs_retention_30d": "Container log lines older than 30 days are removed: the log-retention DaemonSet (dev-infra apps/log-retention, DRY_RUN=0) deletes and trims /var/log/pods on every node once a day, so a line lives at most 30 days plus up to one day until the next pass (about 31 days); there is no other log store (SDL-739). Not covered: node system journals, Sentry events",
+    "account_deletion": "Self-deletion of the account erases it: sign-in closes at once, every workspace of the person goes to the trash with an expired term and is ERASED by the next purge (collections PURGE_MODE=enforce), memberships and sent invites are removed, all sessions revoked (SDL-740..743)",
+    "session_logout": "Sign-out always expires the session cookies in this browser (SDL-613 S6a); revoking the refresh-token family in auth-service (S5) is an attempt, not a guarantee: if auth-service is unreachable the family is not revoked and lives until its own expiry (JWT_REFRESH_TTL). An access token already issued lives until its exp (JWT_ACCESS_TTL)",
+    "landing_no_analytics": "The landing markerloop.com ships no analytics: zero script tags and no cookies; analytics is a build-time opt-in through PUBLIC_ANALYTICS_* and those CI variables are not set (SDL-745)",
+    "legal_review": "The text was reviewed by a lawyer; turned on only by the owner"
+  },
+  "sections": [
+    {
+      "slug": "rules",
+      "file": "sections/rules.md",
+      "promises": [],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "aee448a8bc83536e87c0abc8bbc664c76a3f7aada7d9ac8f13eac07c48708a14",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-14",
+          "sha256": "b7aa92d5becd2682680c4583fb5bcb4a3b765ec986914212fe1b934cf136e321",
+          "owner_request": "Решение владельца 8 Oct 2026, EP-155: личного пространства нет; регистрация = учётная запись; пространство = проект с адресом по выбору; одно бесплатное на учётную запись. Тексты — нарядом SDL-763"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/rules.md",
+          "of_version": 2,
+          "sha256": "2485212fafff3bcfa7236bf7454338c1be8fa79fde453865ec64bb0db5ca159b"
+        }
+      }
+    },
+    {
+      "slug": "limits",
+      "file": "sections/limits.md",
+      "promises": [
+        "workspace_limits"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "7b717d646640dfab180b8a346ca83d3e68df13640bba2a4e5c99f28b01248153",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-14",
+          "sha256": "bf0d313fd15563bf108dc2d4cd7a5adf9800014b42e458d4f2225595cbcfbf8e",
+          "owner_request": "Решение владельца 8 Oct 2026, EP-155: личного пространства нет; регистрация = учётная запись; пространство = проект с адресом по выбору; одно бесплатное на учётную запись. Тексты — нарядом SDL-763"
+        },
+        {
+          "version": 3,
+          "effective_date": "2026-10-19",
+          "sha256": "b4c2e2889888e5fbcad014ad35fb98f284794313c11743d2edda35df265a85f9",
+          "owner_request": "Решение владельца 12 Oct 2026: Terms 0.4 и Privacy 0.4 — редакция вехи 1; 15 Oct 2026 — «да» на правки по независимому ревью (SDL-784). Решение 7 Oct 2026: выходим без юриста, платный юрист — до боевого Paddle. Решение владельца 15 Oct 2026: «да» на английскую редакцию свода (7 разделов, строки, подписи лимитов) и на «Платных тарифов пока нет» вместо «Тарифов пока нет» (независимое ревью перевода); выкат одним разом с Terms/Privacy 0.4 (SDL-784). Основание правок «Учёт трафика появится…» (снята) и «Удалить навсегда» → «в течение 24 часов»: «да» владельца 15 Oct 2026 на пункт независимого ревью «неправда на проде» (поддомены работают, счётчика трафика нет; на проде стирание идёт опросом purge-due раз в час, не сразу)"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/limits.md",
+          "of_version": 3,
+          "sha256": "383724df3f405e924fad1af716a7d25b114c57025e7d346fc7397bf0f227af1e"
+        }
+      }
+    },
+    {
+      "slug": "deletion",
+      "file": "sections/deletion.md",
+      "promises": [
+        "workspace_trash",
+        "item_delete_confirm"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "780dac8ea0bb0babc7f9fda53e73b58830e3202c3fb05b163138688bfe556959",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-14",
+          "sha256": "c841831ebf881fb966e0521c4af8be325378dd55fde957aeae50e83e44e3ac5d",
+          "owner_request": "Решение владельца 8 Oct 2026, EP-155: личного пространства нет; регистрация = учётная запись; пространство = проект с адресом по выбору; одно бесплатное на учётную запись. Тексты — нарядом SDL-763"
+        },
+        {
+          "version": 3,
+          "effective_date": "2026-10-19",
+          "sha256": "6d14a563d78855c8f8eb0971847dadad015d7118dfac079c1a564db0846e910e",
+          "owner_request": "Решение владельца 12 Oct 2026: Terms 0.4 и Privacy 0.4 — редакция вехи 1; 15 Oct 2026 — «да» на правки по независимому ревью (SDL-784). Решение 7 Oct 2026: выходим без юриста, платный юрист — до боевого Paddle. Основание правок «Учёт трафика появится…» (снята) и «Удалить навсегда» → «в течение 24 часов»: «да» владельца 15 Oct 2026 на пункт независимого ревью «неправда на проде» (поддомены работают, счётчика трафика нет; на проде стирание идёт опросом purge-due раз в час, не сразу)"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/deletion.md",
+          "of_version": 3,
+          "sha256": "fddb7455d7d7a1d078cd44d65a2b16cb4c890c26035a44a56fcc0d6b388bdc1d"
+        }
+      }
+    },
+    {
+      "slug": "access",
+      "file": "sections/access.md",
+      "promises": [
+        "workspace_invites",
+        "member_revocation"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "17b2775e334129d976a34681ed51e36cf9137ab71e741765d5d95fb874071730",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/access.md",
+          "of_version": 1,
+          "sha256": "c76615c23f3a6a2897924e58ef26715b9ec79081250f619f13aaddc8c259e753"
+        }
+      }
+    },
+    {
+      "slug": "visitors",
+      "file": "sections/visitors.md",
+      "promises": [
+        "data_plane_no_cookies"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "038296c6ec795bda2b82df4ba59f2c365d62b1664f834f87db8a108ef2b8b1d5",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/visitors.md",
+          "of_version": 1,
+          "sha256": "cc5643f4ee35190b2b6701d7f0ddbd6c411288d11c3328f42e8e361ebc549268"
+        }
+      }
+    },
+    {
+      "slug": "names",
+      "file": "sections/names.md",
+      "promises": [
+        "names_registry"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "d0593fad8f74a5d60d37f497fff7e97cd7ce8c8cb663620eab0ac5561c23c29f",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-14",
+          "sha256": "3f7e8c58e3388f8c91a038aa5a1eb86400e44904447d123e33a933dbde8c4fde",
+          "owner_request": "Решение владельца 8 Oct 2026, EP-155: личного пространства нет; регистрация = учётная запись; пространство = проект с адресом по выбору; одно бесплатное на учётную запись. Тексты — нарядом SDL-763"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/names.md",
+          "of_version": 2,
+          "sha256": "796873c3648e9cbfb35c4b2958901bf72a0cb1861f49cdaf621c0a1e26d9b1de"
+        }
+      }
+    },
+    {
+      "slug": "faq",
+      "file": "sections/faq.md",
+      "promises": [
+        "data_plane_no_cookies",
+        "member_revocation",
+        "account_deletion"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "659f687e9bb7901dc46c2b81e309bf966d143d82ccd461204a1177fce880f0cd",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-14",
+          "sha256": "fb5b41d9f6b9b2156711d963dfaf955f4c7dd48cc7e5d82a774581fd75a1b21a",
+          "owner_request": "Решение владельца 8 Oct 2026, EP-155: личного пространства нет; регистрация = учётная запись; пространство = проект с адресом по выбору; одно бесплатное на учётную запись. Тексты — нарядом SDL-763"
+        },
+        {
+          "version": 3,
+          "effective_date": "2026-10-19",
+          "sha256": "86c16acbd81df84c24baa850ca96bdae65c88329b4450145d6ca4aace69f526b",
+          "owner_request": "Решение владельца 15 Oct 2026: «да» на английскую редакцию свода (7 разделов, строки, подписи лимитов) и на «Платных тарифов пока нет» вместо «Тарифов пока нет» (независимое ревью перевода); выкат одним разом с Terms/Privacy 0.4 (SDL-784)"
+        }
+      ],
+      "translations": {
+        "en": {
+          "file": "sections/en/faq.md",
+          "of_version": 3,
+          "sha256": "cad8e0ecdd9734e2dc42acb77f7abe1f8d9be81b7c75fae8c8a4fb85dc3243c7"
+        }
+      }
+    },
+    {
+      "slug": "offer",
+      "file": "sections/offer.md",
+      "promises": [
+        "workspace_limits",
+        "workspace_trash",
+        "item_delete_confirm",
+        "account_deletion",
+        "data_plane_no_cookies"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "2b6233d702a42864982b4ab2aca113f932c3a71436be7251045bc611db98ff01",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-19",
+          "sha256": "51bdb34cfd79b259b370e67c785da62520218b50e0ef68ffc53d157a1b50d466",
+          "owner_request": "Решение владельца 12 Oct 2026: Terms 0.4 и Privacy 0.4 — редакция вехи 1; 15 Oct 2026 — «да» на правки по независимому ревью (SDL-784). Решение 7 Oct 2026: выходим без юриста, платный юрист — до боевого Paddle"
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "file": "sections/privacy.md",
+      "promises": [
+        "data_plane_no_cookies",
+        "workspace_trash",
+        "item_delete_confirm",
+        "logs_retention_30d",
+        "account_deletion",
+        "session_logout",
+        "landing_no_analytics"
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "effective_date": "2026-09-29",
+          "sha256": "b2d1d4d6a63e4e9115b985d42235eee22937d88ea9e0d16eb310a5fe605b46a8",
+          "owner_request": "Решение владельца EP-127, 22 Sep 2026: свод решений (internal decision record) утверждён (запись о решении: dev-infra/docs/domains/pages.md, «решение владельца EP-127, 22 Sep 2026»); тексты собраны нарядом SDL-658"
+        },
+        {
+          "version": 2,
+          "effective_date": "2026-10-19",
+          "sha256": "eae4b0e966fb1ae19d25740f3c3dd70ea53854ccc3f194e54225707405525f7f",
+          "owner_request": "Решение владельца 12 Oct 2026: Terms 0.4 и Privacy 0.4 — редакция вехи 1; 15 Oct 2026 — «да» на правки по независимому ревью (SDL-784). Решение 7 Oct 2026: выходим без юриста, платный юрист — до боевого Paddle. SDL-784 review 19 Oct 2026 (§5 storage list, §8 wording, §8 backups and prior file versions up to 45 days) — owner approved 19 Oct 2026"
+        }
+      ]
+    }
+  ]
+}

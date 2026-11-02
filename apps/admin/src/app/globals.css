@@ -1,0 +1,77 @@
+/* App-level utility sheet (SDL-226).
+
+   The kit (`@markerloop/ui/ui/styles.css`, packages/ui) ships a PREBUILT stylesheet that
+   contains only the classes the kit itself uses — an app className that
+   happens to exist there today can silently vanish on any kit release.
+   Screens therefore express layout through kit component props first
+   (Box / Grid / ScreenShell), and this sheet compiles the small remainder
+   of host-shell utilities (dvh heights, overflow, rail widths) from THIS
+   app's own sources.
+
+   `source(none)` + the explicit `@source` list below mean nothing outside
+   the list is scanned, so a stray file can never decide the bundle. The
+   kit's dist IS on the list — deliberately.
+   Two compiled sheets on one page fight by document order: this sheet
+   loads after the kit's, so any class both sheets define is served by THIS
+   copy. If this sheet holds px-3 but not pl-9, a kit input classed
+   `px-3 ... pl-9` loses its pl-9 to our later px-3 and the search icon
+   overlaps the text (caught on SDL-226 acceptance). Scanning the kit dist
+   makes this sheet a complete superset with Tailwind's own intra-sheet
+   ordering, so every kit class pair cascades here exactly as it does in
+   the kit's sheet. Kit classes built on kit-private theme tokens don't
+   compile here and stay served by the kit's copy — that is fine, we
+   define no competing standard class for the same CSS property pair.
+
+   Preflight is deliberately absent (the kit sheet already carries the
+   reset; importing it twice would double-apply it), and color utilities
+   are off-limits here by convention: color always comes from kit
+   components and their variants, so this sheet stays theme-blind. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "../**/*.{ts,tsx}";
+@source "../../../../packages/ui/dist/**/*.js";
+/* The pages editor (SDL-605) brings its own Tailwind classes in
+   packages/studio; they compile only if this sheet scans its dist. */
+@source "../../../../packages/studio/dist/**/*.js";
+
+/* The narrow color exception: utilities like `border-border` compiled HERE
+   must resolve to the KIT's runtime tokens, not to Tailwind defaults. The
+   kit stores complete color values in its custom properties
+   (`--border: #e4e4e7`, oklch in dark), so the mapping is a plain var()
+   pass-through — never wrap these in hsl(): that was the 0.1.0-era shadcn
+   convention, and `hsl(#e4e4e7)` is invalid CSS that silently drops the
+   declaration. Extend this list only with tokens the kit actually ships. */
+@theme inline {
+  --color-border: var(--border);
+  --color-background: var(--background);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-destructive: var(--destructive);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  /* Layer 1 of the redesign (EP-184): role colors and the caption step the kit ships. */
+  --color-component: var(--component);
+  --color-selection: var(--selection);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --text-caption: 11px;
+  --text-caption--line-height: 1.45;
+}
+
+/* The pages editor's canvas frame (packages/studio canvas-frame.tsx) copies
+   the page's stylesheets into its iframe and drops every sheet that declares
+   this marker, so the admin's own utilities never style the author's page.
+   The kit's styles.css stays unlabelled on purpose: the frame needs it.
+
+   This relies on the kit sheet and this sheet shipping as SEPARATE CSS
+   files. `next build` does that today (two chunks, checked on SDL-605 and on
+   the contour); `next dev` (Turbopack) merges them into one, so under the dev
+   server the frame drops both and the author's page renders unstyled. The
+   contour e2e (sdl605-pages-section) asserts the frame keeps the kit sheet on
+   the deployed build. */
+:root {
+  --sauna-sheet-role: "admin";
+}

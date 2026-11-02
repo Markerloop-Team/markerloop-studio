@@ -1,0 +1,27 @@
+**/.git
+**/.DS_Store
+
+# Node / package managers
+**/node_modules
+**/.pnpm-store
+**/.pnp
+**/.pnp.*
+**/.yarn
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+
+# Build outputs / caches
+**/.next
+**/dist
+**/build
+**/.turbo
+**/.cache
+**/coverage
+
+# IDE
+**/.vscode
+**/.idea
+**/*.swp
+

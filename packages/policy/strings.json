@@ -1,0 +1,74 @@
+{
+  "workspace_delete_consequence": {
+    "text": "Пространство {{limit:trash_days}} дней пролежит в удалённых, сайт погаснет сразу. Пока оно там, его можно восстановить; потом данные сотрутся в течение суток.",
+    "translations": {
+      "en": "The workspace will stay in Deleted for {{limit:trash_days}} days, and the site will go dark at once. While it is there, it can be restored; after that, the data is erased within {{limit:purge_hours}} hours.",
+      "kk": null
+    },
+    "section": "deletion",
+    "promises": ["workspace_trash"]
+  },
+  "workspace_delete_forever": {
+    "text": "«Удалить навсегда» стирает пространство в течение {{limit:purge_hours}} часов. Восстановить его будет нельзя.",
+    "translations": {
+      "en": "\"Delete forever\" erases the workspace within {{limit:purge_hours}} hours. It will not be possible to restore it.",
+      "kk": null
+    },
+    "section": "deletion",
+    "promises": ["workspace_trash"]
+  },
+  "item_delete_consequence": {
+    "text": "Удаляется сразу, после подтверждения.",
+    "translations": {
+      "en": "Deleted at once, after confirmation.",
+      "kk": null
+    },
+    "section": "deletion",
+    "promises": ["item_delete_confirm"]
+  },
+  "account_delete_consequence": {
+    "text": "Учётная запись удаляется сразу, восстановить её нельзя. Вместе с ней удаляются все ваши пространства — их тоже не восстановить. Из чужих пространств вы выходите, непринятые приглашения, которые вы отправили, отзываются, входы на всех устройствах завершаются.",
+    "translations": {
+      "en": "Your account is deleted at once and cannot be restored. All your workspaces are deleted with it and cannot be restored either. You leave other people's workspaces, invitations you sent that are not yet accepted are withdrawn, and you are signed out on every device.",
+      "kk": "Есептік жазба бірден жойылады, оны қалпына келтіру мүмкін емес. Онымен бірге барлық кеңістіктеріңіз жойылады — оларды да қалпына келтіруге болмайды. Басқалардың кеңістіктерінен шығасыз, сіз жіберген әлі қабылданбаған шақырулар кері қайтарылады, барлық құрылғылардағы кірулер аяқталады."
+    },
+    "section": "deletion",
+    "promises": ["account_deletion"]
+  },
+  "limit_write_refused": {
+    "text": "Лимит пространства исчерпан: создать новое нельзя. Чтение, удаление и опубликованный сайт работают, данные целы.",
+    "translations": {
+      "en": "The workspace limit is reached: nothing new can be created. Reading, deleting and the published site keep working; your data is intact.",
+      "kk": null
+    },
+    "section": "limits",
+    "promises": ["workspace_limits"]
+  },
+  "acceptance_title": {
+    "text": "Примите правила Markerloop",
+    "translations": {
+      "en": "Accept the Markerloop rules",
+      "kk": "Markerloop ережелерін қабылдаңыз"
+    },
+    "section": "rules",
+    "promises": []
+  },
+  "acceptance_description": {
+    "text": "Правила ещё не приняты или вышла новая редакция. Прочитайте действующие разделы и примите их, чтобы продолжить.",
+    "translations": {
+      "en": "You have not accepted the rules yet, or a new edition is out. Read the sections in force and accept them to continue.",
+      "kk": "Ережелер әлі қабылданбаған немесе жаңа редакция шықты. Жалғастыру үшін қолданыстағы бөлімдерді оқып, қабылдаңыз."
+    },
+    "section": "rules",
+    "promises": []
+  },
+  "acceptance_checkbox": {
+    "text": "Принимаю правила Markerloop",
+    "translations": {
+      "en": "I accept the Markerloop rules",
+      "kk": "Markerloop ережелерін қабылдаймын"
+    },
+    "section": "rules",
+    "promises": []
+  }
+}

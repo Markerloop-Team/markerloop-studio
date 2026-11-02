@@ -1,0 +1,40 @@
+{
+  "name": "markerloop",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev --filter=./apps/admin",
+    "dev:showroom": "NEXT_PUBLIC_BASE_PATH=/markerloop-studio pnpm --filter admin dev",
+    "build": "turbo run build",
+    "build:showroom": "NEXT_PUBLIC_BASE_PATH=/markerloop-studio pnpm --filter admin build",
+    "start": "turbo run start",
+    "start:showroom": "NEXT_PUBLIC_BASE_PATH=/markerloop-studio PORT=${PORT:-3320} pnpm --filter admin start",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.53.1",
+    "prettier": "^3.7.4",
+    "turbo": "^2.0.0"
+  },
+  "packageManager": "pnpm@10.12.1",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
+  }
+}

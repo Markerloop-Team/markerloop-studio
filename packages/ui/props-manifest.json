@@ -1,0 +1,2391 @@
+{
+  "package": "@markerloop/ui",
+  "version": "0.0.0",
+  "generatedBy": "packages/ui/scripts/props-manifest.mjs — regenerate with `pnpm --filter @markerloop/ui props:manifest`, do not hand-edit",
+  "components": {
+    "Accordion": {
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "state",
+          "enumValues": [
+            "single",
+            "multiple"
+          ],
+          "required": false,
+          "label": "Open",
+          "default": "multiple",
+          "description": "single: one item open at a time; multiple: each item opens on its own."
+        },
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "label": "Can close the open item",
+          "description": "Only for single; ignored for multiple."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "editor": "text",
+          "group": "state",
+          "required": false,
+          "label": "Open item",
+          "description": "The value of the item that is open when the page loads (single)."
+        }
+      ]
+    },
+    "AccordionContent": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "AccordionItem": {
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "label": "Item value"
+        }
+      ]
+    },
+    "AccordionTrigger": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Title",
+          "content": true
+        }
+      ]
+    },
+    "ActionCardLink": {
+      "props": [
+        {
+          "name": "description",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "content": true
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "editor": "link",
+          "group": "content",
+          "required": true,
+          "content": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": true,
+          "content": true
+        }
+      ]
+    },
+    "Alert": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Message",
+          "content": true
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "destructive"
+          ],
+          "required": false
+        }
+      ]
+    },
+    "AlertDialogAction": {
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "icon",
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "link",
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "ghost-destructive"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "AlertDialogCancel": {
+      "props": []
+    },
+    "AlertDialogContent": {
+      "props": []
+    },
+    "AlertDialogDescription": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Description",
+          "content": true
+        }
+      ]
+    },
+    "AlertDialogOverlay": {
+      "props": []
+    },
+    "AlertDialogTitle": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Title",
+          "content": true
+        }
+      ]
+    },
+    "AlertDialogTrigger": {
+      "props": []
+    },
+    "Avatar": {
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "editor": "number",
+          "group": "appearance",
+          "required": false,
+          "label": "Size",
+          "default": 8,
+          "description": "Diameter step: 8, 10 or 12 (2, 2.5 or 3 rem)."
+        }
+      ]
+    },
+    "AvatarFallback": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Initials",
+          "content": true
+        }
+      ]
+    },
+    "AvatarImage": {
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Alt text",
+          "content": true
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "editor": "link",
+          "group": "content",
+          "required": false,
+          "label": "Source",
+          "content": true
+        }
+      ]
+    },
+    "Badge": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "tone",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "red",
+            "green",
+            "orange"
+          ],
+          "required": false,
+          "description": "Дополнительная “окраска” без className в приложении",
+          "label": "Tone"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "link",
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "component"
+          ],
+          "required": false,
+          "label": "Variant"
+        }
+      ]
+    },
+    "Box": {
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "center",
+            "grid",
+            "stack",
+            "panel"
+          ],
+          "required": false
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "row",
+            "column"
+          ],
+          "required": false,
+          "label": "Direction"
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "label": "Gap"
+        },
+        {
+          "name": "align",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "start",
+            "center",
+            "end",
+            "stretch",
+            "baseline"
+          ],
+          "required": false,
+          "label": "Cross-axis alignment"
+        },
+        {
+          "name": "justify",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "start",
+            "center",
+            "end",
+            "between",
+            "around",
+            "evenly"
+          ],
+          "required": false,
+          "label": "Main-axis alignment"
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "label": "Wrap"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "label": "Full width"
+        },
+        {
+          "name": "fullHeight",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "label": "Full height"
+        },
+        {
+          "name": "grow",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "label": "Grow"
+        },
+        {
+          "name": "shrink",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "label": "Shrink"
+        },
+        {
+          "name": "textAlign",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "left",
+            "center",
+            "right"
+          ],
+          "required": false,
+          "label": "Text alignment"
+        },
+        {
+          "name": "padding",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "label": "Padding"
+        },
+        {
+          "name": "columns",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "label": "Columns"
+        },
+        {
+          "name": "mdColumns",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "label": "Columns — tablet"
+        },
+        {
+          "name": "lgColumns",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "label": "Columns — desktop"
+        }
+      ]
+    },
+    "Button": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "link",
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "ghost-destructive"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "icon",
+            "default",
+            "xs",
+            "sm",
+            "lg",
+            "icon-xs",
+            "icon-sm",
+            "icon-lg"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет сделать кнопку на всю ширину без className"
+        }
+      ]
+    },
+    "Card": {
+      "props": [
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет сделать карточку на всю ширину без className"
+        },
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет задать max-width (px) без className"
+        },
+        {
+          "name": "padding",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "none",
+            "default",
+            "compact"
+          ],
+          "required": false,
+          "description": "Отступ внутри (EP-185, слой 2 редизайна). Не задан — 24 px, а в админке\n(`[data-surface]`) 16 px: стоковые 24 там велики, 23 экрана обнуляли их\nвручную. `none` — экран рисует отступ сам. Сайты клиентов атрибута\ndata-surface не ставят и видят прежние 24."
+        }
+      ]
+    },
+    "CardAction": {
+      "props": []
+    },
+    "CardContent": {
+      "props": []
+    },
+    "CardDescription": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Description",
+          "content": true
+        }
+      ]
+    },
+    "CardFooter": {
+      "props": []
+    },
+    "CardHeader": {
+      "props": []
+    },
+    "CardTitle": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Title",
+          "content": true
+        }
+      ]
+    },
+    "Center": {
+      "props": [
+        {
+          "name": "inline",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Центрирование по обеим осям"
+        },
+        {
+          "name": "minHeightScreen",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "Заполнить минимум высоты экрана"
+        }
+      ]
+    },
+    "Checkbox": {
+      "props": []
+    },
+    "Code": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Code",
+          "content": true
+        }
+      ]
+    },
+    "Command": {
+      "props": [
+        {
+          "name": "disablePointerSelection",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Optionally set to `true` to disable selection via pointer events."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "description": "Accessible label for this command menu. Not shown visibly."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Optionally set to `true` to turn on looping around when using the arrow keys."
+        },
+        {
+          "name": "shouldFilter",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Optionally set to `false` to turn off the automatic filtering and sorting.\nIf `false`, you must conditionally render valid items based on the search query yourself."
+        },
+        {
+          "name": "vimBindings",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Set to `false` to disable ctrl+n/j/p/k shortcuts. Defaults to `true`."
+        }
+      ]
+    },
+    "CommandDialog": {
+      "props": [
+        {
+          "name": "description",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "default": "Search for a command to run..."
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "default": "Command Palette"
+        }
+      ]
+    },
+    "CommandEmpty": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Empty state text",
+          "content": true
+        }
+      ]
+    },
+    "CommandGroup": {
+      "props": [
+        {
+          "name": "forceMount",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Whether this group is forcibly rendered regardless of filtering."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "description": "If no heading is provided, you must provide a value that is unique for this group."
+        }
+      ]
+    },
+    "CommandInput": {
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Placeholder"
+        }
+      ]
+    },
+    "CommandItem": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Command name",
+          "content": true
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "Whether this item is currently disabled."
+        },
+        {
+          "name": "forceMount",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Whether this item is forcibly rendered regardless of filtering."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "description": "A unique value for this item.\nIf no value is provided, it will be inferred from `children` or the rendered `textContent`. If your `textContent` changes between renders, you _must_ provide a stable, unique `value`."
+        }
+      ]
+    },
+    "CommandList": {
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "description": "Accessible label for this List of suggestions. Not shown visibly."
+        }
+      ]
+    },
+    "CommandSeparator": {
+      "props": [
+        {
+          "name": "alwaysRender",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "Whether this separator should always be rendered. Useful if you disable automatic filtering."
+        }
+      ]
+    },
+    "CommandShortcut": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Shortcut",
+          "content": true
+        }
+      ]
+    },
+    "ControlField": {
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "description": "Id for the control. Generated with `React.useId` when absent."
+        }
+      ]
+    },
+    "DataTable": {
+      "props": [
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "editor": "text",
+          "group": "state",
+          "required": false
+        },
+        {
+          "name": "isLoading",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "manualFiltering",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "manualPagination",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "manualSorting",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": false
+        },
+        {
+          "name": "pageCount",
+          "type": "number",
+          "editor": "number",
+          "group": "advanced",
+          "required": false
+        },
+        {
+          "name": "pageIndex",
+          "type": "number",
+          "editor": "number",
+          "group": "advanced",
+          "required": false
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "default": 10
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false
+        },
+        {
+          "name": "searchValue",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "showPagination",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "showSearch",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": true
+        }
+      ]
+    },
+    "DialogClose": {
+      "props": []
+    },
+    "DialogContent": {
+      "props": [
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет задавать ширину диалога без className в приложении"
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": true
+        }
+      ]
+    },
+    "DialogDescription": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Description",
+          "content": true
+        },
+        {
+          "name": "tone",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "destructive",
+            "muted"
+          ],
+          "required": false,
+          "default": "muted"
+        }
+      ]
+    },
+    "DialogFooter": {
+      "props": []
+    },
+    "DialogOverlay": {
+      "props": []
+    },
+    "DialogTitle": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Title",
+          "content": true
+        }
+      ]
+    },
+    "DialogTrigger": {
+      "props": []
+    },
+    "DropdownMenuCheckboxItem": {
+      "props": []
+    },
+    "DropdownMenuContent": {
+      "props": [
+        {
+          "name": "width",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет задать ширину без className (px)"
+        }
+      ]
+    },
+    "DropdownMenuGroup": {
+      "props": []
+    },
+    "DropdownMenuItem": {
+      "props": [
+        {
+          "name": "active",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "Подсветка активного пункта без className"
+        },
+        {
+          "name": "inset",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "destructive"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "DropdownMenuLabel": {
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        }
+      ]
+    },
+    "DropdownMenuRadioGroup": {
+      "props": []
+    },
+    "DropdownMenuRadioItem": {
+      "props": []
+    },
+    "DropdownMenuSeparator": {
+      "props": []
+    },
+    "DropdownMenuSubContent": {
+      "props": []
+    },
+    "DropdownMenuSubTrigger": {
+      "props": [
+        {
+          "name": "inset",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        }
+      ]
+    },
+    "DropdownMenuTrigger": {
+      "props": []
+    },
+    "EmptyState": {
+      "props": [
+        {
+          "name": "align",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "center",
+            "start"
+          ],
+          "required": false,
+          "default": "center"
+        }
+      ]
+    },
+    "FormField": {
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false
+        },
+        {
+          "name": "exact",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": true
+        },
+        {
+          "name": "shouldUnregister",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false
+        }
+      ]
+    },
+    "FormItem": {
+      "props": [
+        {
+          "name": "align",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "center",
+            "start",
+            "end"
+          ],
+          "required": false,
+          "default": "start",
+          "description": "align-items для row-layout"
+        },
+        {
+          "name": "layout",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "grid",
+            "row"
+          ],
+          "required": false,
+          "default": "grid",
+          "description": "Позволяет задавать layout без className в приложении"
+        }
+      ]
+    },
+    "FormLabel": {
+      "props": []
+    },
+    "Grid": {
+      "props": []
+    },
+    "IconGallery": {
+      "props": [
+        {
+          "name": "description",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "default": "Коллекция иконок на базе lucide-react."
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "default": 20
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "default": "Иконки"
+        }
+      ]
+    },
+    "Image": {
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Alt text",
+          "content": true
+        },
+        {
+          "name": "aspect",
+          "type": "string",
+          "editor": "text",
+          "group": "layout",
+          "required": false,
+          "description": "If true, the image renders inside a fixed-aspect wrapper so layout\nstays stable while the source loads. Pass a CSS aspect-ratio value\n(e.g. \"16 / 9\", \"1 / 1\") or \"auto\" to opt out.",
+          "label": "Aspect ratio"
+        },
+        {
+          "name": "fit",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "fill",
+            "none",
+            "cover",
+            "contain",
+            "scale-down"
+          ],
+          "required": false,
+          "default": "cover",
+          "description": "Object-fit hint mapped to a Tailwind class. Defaults to \"cover\".",
+          "label": "Fit"
+        },
+        {
+          "name": "loading",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "advanced",
+          "enumValues": [
+            "eager",
+            "lazy"
+          ],
+          "required": false,
+          "default": "lazy",
+          "description": "Native lazy/eager hint. Defaults to \"lazy\" so non-hero images don't\nblock initial paint."
+        },
+        {
+          "name": "rounded",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "none",
+            "sm",
+            "lg",
+            "md",
+            "xl",
+            "full"
+          ],
+          "required": false,
+          "default": "none",
+          "description": "Rounded-corner preset. \"full\" for a circle, \"none\" to opt out.",
+          "label": "Rounding"
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "editor": "link",
+          "group": "content",
+          "required": false,
+          "label": "Source",
+          "content": true
+        }
+      ]
+    },
+    "InlineAlert": {
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "destructive"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "Input": {
+      "props": [
+        {
+          "name": "leftInset",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "icon"
+          ],
+          "required": false,
+          "description": "Добавляет отступ слева под иконку (аналог pl-9) без className"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Placeholder"
+        }
+      ]
+    },
+    "InputGroup": {
+      "props": []
+    },
+    "InputGroupAddon": {
+      "props": [
+        {
+          "name": "align",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "inline-start",
+            "inline-end",
+            "block-start",
+            "block-end"
+          ],
+          "required": false,
+          "default": "inline-start"
+        }
+      ]
+    },
+    "InputGroupButton": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "Позволяет сделать кнопку на всю ширину без className"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "xs",
+            "sm",
+            "icon-xs",
+            "icon-sm"
+          ],
+          "required": false,
+          "default": "xs"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "link",
+            "default",
+            "destructive",
+            "outline",
+            "secondary",
+            "ghost",
+            "ghost-destructive"
+          ],
+          "required": false,
+          "default": "ghost"
+        }
+      ]
+    },
+    "InputGroupInput": {
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Placeholder"
+        }
+      ]
+    },
+    "InputGroupText": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "InputGroupTextarea": {
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Placeholder"
+        }
+      ]
+    },
+    "Label": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "Link": {
+      "props": [
+        {
+          "name": "description",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "content": true
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "editor": "link",
+          "group": "content",
+          "required": true,
+          "content": true
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": true,
+          "content": true
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "row",
+            "action-card"
+          ],
+          "required": false
+        }
+      ]
+    },
+    "ListHeader": {
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": true,
+          "label": "Title",
+          "content": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Description",
+          "content": true
+        }
+      ]
+    },
+    "NativeCheckbox": {
+      "props": []
+    },
+    "NativeSelect": {
+      "props": []
+    },
+    "Panel": {
+      "props": []
+    },
+    "PopoverAnchor": {
+      "props": []
+    },
+    "PopoverContent": {
+      "props": []
+    },
+    "PopoverTrigger": {
+      "props": []
+    },
+    "ResizableHandle": {
+      "props": [
+        {
+          "name": "disableDoubleClick",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "When true, double-clicking this `Separator` will not reset its `Panel` to its default size."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "When disabled, the separator cannot be used to resize its neighboring panels.\n\nℹ️ The panels may still be resized indirectly (while other panels are being resized).\nTo prevent a panel from being resized at all, it needs to also be disabled."
+        },
+        {
+          "name": "withHandle",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false
+        }
+      ]
+    },
+    "ResizablePanel": {
+      "props": [
+        {
+          "name": "collapsible",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "This panel can be collapsed.\n\nℹ️ A collapsible panel will collapse when it's size is less than of the specified `minSize`"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "When disabled, a panel cannot be resized either directly or indirectly (by resizing another panel)."
+        },
+        {
+          "name": "groupResizeBehavior",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "preserve-relative-size",
+            "preserve-pixel-size"
+          ],
+          "required": false,
+          "description": "How should this Panel behave if the parent Group is resized?\nDefaults to `preserve-relative-size`.\n\n- `preserve-relative-size`: Retain the current relative size (as a percentage of the Group)\n- `preserve-pixel-size`: Retain its current size (in pixels)\n\nℹ️ Panel min/max size constraints may impact this behavior.\n\n⚠️ A Group must contain at least one Panel with `preserve-relative-size` resize behavior."
+        }
+      ]
+    },
+    "ResizablePanelGroup": {
+      "props": [
+        {
+          "name": "disableCursor",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "description": "This library sets custom mouse cursor styles to indicate drag state.\nUse this prop to disable that behavior for Panels and Separators in this group."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "state",
+          "required": false,
+          "description": "Disable resize functionality."
+        },
+        {
+          "name": "orientation",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ],
+          "required": false,
+          "description": "Specifies the resizable orientation (\"horizontal\" or \"vertical\"); defaults to \"horizontal\""
+        }
+      ]
+    },
+    "RowLink": {
+      "props": [
+        {
+          "name": "href",
+          "type": "string",
+          "editor": "link",
+          "group": "content",
+          "required": true,
+          "content": true
+        }
+      ]
+    },
+    "ScrollArea": {
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "hover",
+            "scroll",
+            "auto",
+            "always"
+          ],
+          "required": false,
+          "label": "Scrollbar visibility",
+          "default": "hover"
+        },
+        {
+          "name": "scrollHideDelay",
+          "type": "number",
+          "editor": "number",
+          "group": "advanced",
+          "required": false,
+          "label": "Hide delay, ms",
+          "default": 600,
+          "description": "How long the scrollbar stays after the pointer leaves (types hover and scroll)."
+        }
+      ]
+    },
+    "ScrollBar": {
+      "props": [
+        {
+          "name": "orientation",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "vertical",
+            "horizontal"
+          ],
+          "required": false,
+          "label": "Orientation",
+          "default": "vertical"
+        }
+      ]
+    },
+    "SearchField": {
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false
+        },
+        {
+          "name": "clearLabel",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "description": "Accessible name of the clear button. The host passes its catalogue string."
+        },
+        {
+          "name": "maxWidth",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false
+        }
+      ]
+    },
+    "Select": {
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false
+        }
+      ]
+    },
+    "SelectContent": {
+      "props": []
+    },
+    "SelectGroup": {
+      "props": []
+    },
+    "SelectItem": {
+      "props": []
+    },
+    "SelectLabel": {
+      "props": []
+    },
+    "SelectScrollDownButton": {
+      "props": []
+    },
+    "SelectScrollUpButton": {
+      "props": []
+    },
+    "SelectSeparator": {
+      "props": []
+    },
+    "SelectTrigger": {
+      "props": [
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "w-full без className"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "default",
+            "sm"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false,
+          "description": "Ширина в px без className"
+        }
+      ]
+    },
+    "SelectValue": {
+      "props": []
+    },
+    "Separator": {
+      "props": [
+        {
+          "name": "orientation",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ],
+          "required": false,
+          "label": "Orientation",
+          "default": "horizontal"
+        },
+        {
+          "name": "decorative",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "label": "Decorative",
+          "default": true,
+          "description": "Hidden from assistive technology; turn off when the line separates content semantically."
+        }
+      ]
+    },
+    "Sheet": {
+      "props": []
+    },
+    "SheetClose": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "SheetContent": {
+      "props": [
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "advanced",
+          "required": false,
+          "default": true
+        },
+        {
+          "name": "side",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ],
+          "required": false,
+          "default": "right"
+        }
+      ]
+    },
+    "SheetDescription": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Description",
+          "content": true
+        }
+      ]
+    },
+    "SheetFooter": {
+      "props": []
+    },
+    "SheetHeader": {
+      "props": []
+    },
+    "SheetTitle": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Title",
+          "content": true
+        }
+      ]
+    },
+    "SheetTrigger": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "Skeleton": {
+      "props": [
+        {
+          "name": "height",
+          "type": "number",
+          "editor": "number",
+          "group": "layout",
+          "required": false
+        }
+      ]
+    },
+    "Stack": {
+      "props": [
+        {
+          "name": "align",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "center",
+            "start",
+            "end",
+            "baseline",
+            "stretch"
+          ],
+          "required": false
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "row",
+            "column"
+          ],
+          "required": false,
+          "default": "column"
+        },
+        {
+          "name": "fullHeight",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        },
+        {
+          "name": "grow",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        },
+        {
+          "name": "justify",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "center",
+            "start",
+            "end",
+            "between",
+            "around",
+            "evenly"
+          ],
+          "required": false
+        },
+        {
+          "name": "shrink",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false,
+          "description": "`false` → `flex-none`: opt out of shrinking inside a flex parent (EP-32 §4.3)."
+        },
+        {
+          "name": "textAlign",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "center",
+            "right",
+            "left"
+          ],
+          "required": false
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "editor": "switch",
+          "group": "layout",
+          "required": false
+        }
+      ]
+    },
+    "Switch": {
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "default",
+            "sm"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "Table": {
+      "props": [
+        {
+          "name": "layout",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "auto",
+            "fixed"
+          ],
+          "required": false,
+          "default": "auto"
+        }
+      ]
+    },
+    "TableBody": {
+      "props": []
+    },
+    "TableCaption": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Caption",
+          "content": true
+        }
+      ]
+    },
+    "TableCell": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "TableFooter": {
+      "props": []
+    },
+    "TableHead": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        }
+      ]
+    },
+    "TableHeader": {
+      "props": []
+    },
+    "TableKit": {
+      "props": [
+        {
+          "name": "layout",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "advanced",
+          "enumValues": [
+            "auto",
+            "fixed"
+          ],
+          "required": false
+        }
+      ]
+    },
+    "TableRow": {
+      "props": []
+    },
+    "Tabs": {
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "editor": "text",
+          "group": "state",
+          "required": false,
+          "label": "Open tab",
+          "description": "The value of the tab trigger that is open when the page loads."
+        },
+        {
+          "name": "orientation",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ],
+          "required": false,
+          "label": "Orientation",
+          "default": "horizontal"
+        }
+      ]
+    },
+    "TabsContent": {
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "label": "Tab value"
+        }
+      ]
+    },
+    "TabsList": {
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "line",
+            "default"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "TabsTrigger": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Tab label",
+          "content": true
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "label": "Tab value"
+        }
+      ]
+    },
+    "Text": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "select",
+          "group": "appearance",
+          "enumValues": [
+            "label",
+            "meta",
+            "default",
+            "destructive",
+            "muted",
+            "mono",
+            "success",
+            "danger",
+            "kicker"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "select",
+          "group": "layout",
+          "enumValues": [
+            "xs",
+            "sm",
+            "lg",
+            "md",
+            "xl",
+            "2xl",
+            "3xl",
+            "4xl"
+          ],
+          "required": false
+        },
+        {
+          "name": "weight",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "normal",
+            "medium",
+            "semibold",
+            "bold"
+          ],
+          "required": false
+        },
+        {
+          "name": "wrap",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "normal",
+            "break"
+          ],
+          "required": false,
+          "default": "normal"
+        }
+      ]
+    },
+    "Textarea": {
+      "props": [
+        {
+          "name": "placeholder",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Placeholder"
+        }
+      ]
+    },
+    "Toggle": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "default",
+            "sm",
+            "lg"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "outline"
+          ],
+          "required": false,
+          "default": "default"
+        }
+      ]
+    },
+    "ToggleGroup": {
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "default",
+            "sm",
+            "lg"
+          ],
+          "required": false
+        },
+        {
+          "name": "spacing",
+          "type": "number",
+          "editor": "number",
+          "group": "advanced",
+          "required": false,
+          "default": 2
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "outline"
+          ],
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "advanced",
+          "enumValues": [
+            "single",
+            "multiple"
+          ],
+          "required": false,
+          "label": "Selection mode"
+        }
+      ]
+    },
+    "ToggleGroupItem": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Text",
+          "content": true
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "layout",
+          "enumValues": [
+            "default",
+            "sm",
+            "lg"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "editor": "segmented",
+          "group": "appearance",
+          "enumValues": [
+            "default",
+            "outline"
+          ],
+          "required": false,
+          "default": "default"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "editor": "text",
+          "group": "advanced",
+          "required": false,
+          "label": "Value"
+        }
+      ]
+    },
+    "Tooltip": {
+      "props": []
+    },
+    "TooltipContent": {
+      "props": [
+        {
+          "name": "children",
+          "type": "string",
+          "editor": "text",
+          "group": "content",
+          "required": false,
+          "label": "Tooltip text",
+          "content": true
+        }
+      ]
+    },
+    "TooltipTrigger": {
+      "props": []
+    }
+  }
+}

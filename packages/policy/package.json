@@ -1,0 +1,19 @@
+{
+  "name": "@markerloop/policy",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Markerloop product rules (SDL-658): sections in Russian markdown, limits.json, manifest.json with owner-approved revisions, short strings for dialogs. Texts change only on a direct owner request.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": ["dist"],
+  "scripts": {
+    "prepare": "node scripts/build.mjs",
+    "build": "node scripts/build.mjs"
+  }
+}

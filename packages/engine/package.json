@@ -1,0 +1,75 @@
+{
+  "name": "@markerloop/engine",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Markerloop pages engine: schema and its versioning, block catalog, React tree rendering with the server/client boundary, storage providers. Moved in from the reference's apps/studio/src/engine (SDL-603).",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "default": "./dist/react/index.js"
+    },
+    "./react/server": {
+      "types": "./dist/react/server.d.ts",
+      "default": "./dist/react/server.js"
+    },
+    "./react/renderer": {
+      "types": "./dist/react/renderer.d.ts",
+      "default": "./dist/react/renderer.js"
+    },
+    "./providers/http": {
+      "types": "./dist/providers/http/index.d.ts",
+      "default": "./dist/providers/http/index.js"
+    },
+    "./providers/data": {
+      "types": "./dist/providers/data/index.d.ts",
+      "default": "./dist/providers/data/index.js"
+    },
+    "./providers/pages": {
+      "types": "./dist/providers/pages/index.d.ts",
+      "default": "./dist/providers/pages/index.js"
+    },
+    "./next": {
+      "types": "./dist/next/index.d.ts",
+      "default": "./dist/next/index.js"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "prepare": "pnpm build",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node scripts/postbuild.mjs",
+    "type-check": "tsc --noEmit && tsc --noEmit -p test/tsconfig.json",
+    "test": "tsx --tsconfig test/tsconfig.json test/run.tsx",
+    "test:planted": "node test/planted.mjs",
+    "snapshots:record": "tsx --tsconfig test/tsconfig.json test/record-reference.tsx",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@markerloop/policy": "workspace:*",
+    "zod": "^4.2.1"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsx": "^4.23.5",
+    "typescript": "^5"
+  }
+}

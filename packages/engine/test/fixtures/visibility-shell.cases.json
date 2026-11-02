@@ -1,0 +1,1596 @@
+{
+  "_comment": [
+    "SDL-632: shared fixture for the public shell of a page. To be copied verbatim into",
+    "pages-service/internal/shell/testdata/ (S4; no cross-service imports) — edit here, copy there.",
+    "Each case: `doc`, `expect_shell`, optional `expect_cacheability`.",
+    "`doc` is a page schema: v2 (rootId, nodes, parents, optional params), v1 ({ version: 1, root } — a nested tree), or a document carrying both root and nodes (both are cut). `expect_cacheability` is present only when `doc` has `nodes`.",
+    "`expect_shell` is exactly what saunaPublicShell / shell.Strip must return for it — compare as JSON",
+    "values (key order is irrelevant, array order is not).",
+    "`expect_cacheability` maps node ids of `doc` to saunaNodeCacheability: full | guest-branch | none.",
+    "Rules the cases pin: a node whose visibility is \"private\" — or any string that is not a mode, or",
+    "a number/array — is removed with its subtree, reached through `children` AND `variants[].children`",
+    "(and, for hand-written documents, through the `parents` chain); removed ids disappear from `nodes`,",
+    "`parents`, every surviving `children[]` and `variants[].children`; `member` is removed from every",
+    "node; `params` specs whose nodeId was removed are dropped, the key itself stays; a private root is",
+    "reduced to { type }; nothing else changes.",
+    "`guest_render_differs: true` marks a case where the shell deliberately draws differently for a guest",
+    "A v1 `root` tree is cut by the same rules along `children`; a cut v1 root is reduced to { type }. `parents` is filtered when present and never invented when absent.",
+    "`guest_render_differs: true` marks a case where the shell deliberately draws differently for a guest than the raw document does (fail closed); the engine's render-parity test skips it, Go may ignore it.",
+    "`nodes` or `parents` present but not a plain object (an array, a string) — the shell drops BOTH keys, fail closed: no node reaches a visitor; the validator refuses such a document on write."
+  ],
+  "cases": [
+    {
+      "name": "no private node: the shell is the document",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            },
+            "visibility": "public"
+          },
+          "b": {
+            "type": "Text",
+            "props": {
+              "children": "legacy"
+            },
+            "visibility": {
+              "when": {
+                "op": "truthy",
+                "path": "user.id"
+              }
+            }
+          },
+          "c": {
+            "type": "Text",
+            "props": {
+              "children": "wide",
+              "size": "lg"
+            },
+            "screens": {
+              "mobile": {
+                "props": {
+                  "size": "sm"
+                }
+              }
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root",
+          "b": "root",
+          "c": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a",
+              "b",
+              "c"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            },
+            "visibility": "public"
+          },
+          "b": {
+            "type": "Text",
+            "props": {
+              "children": "legacy"
+            },
+            "visibility": {
+              "when": {
+                "op": "truthy",
+                "path": "user.id"
+              }
+            }
+          },
+          "c": {
+            "type": "Text",
+            "props": {
+              "children": "wide",
+              "size": "lg"
+            },
+            "screens": {
+              "mobile": {
+                "props": {
+                  "size": "sm"
+                }
+              }
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root",
+          "b": "root",
+          "c": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "a": "full",
+        "b": "full",
+        "c": "full"
+      }
+    },
+    {
+      "name": "private subtree is removed from nodes, parents and the parent's children",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "pub",
+              "sec",
+              "tail"
+            ]
+          },
+          "pub": {
+            "type": "Text",
+            "props": {
+              "children": "for everyone"
+            }
+          },
+          "sec": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [
+              "s1"
+            ]
+          },
+          "s1": {
+            "type": "Box",
+            "children": [
+              "s2"
+            ]
+          },
+          "s2": {
+            "type": "Text",
+            "props": {
+              "children": "members-only price"
+            }
+          },
+          "tail": {
+            "type": "Text",
+            "props": {
+              "children": "footer"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "pub": "root",
+          "sec": "root",
+          "s1": "sec",
+          "s2": "s1",
+          "tail": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "pub",
+              "tail"
+            ]
+          },
+          "pub": {
+            "type": "Text",
+            "props": {
+              "children": "for everyone"
+            }
+          },
+          "tail": {
+            "type": "Text",
+            "props": {
+              "children": "footer"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "pub": "root",
+          "tail": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "pub": "full",
+        "sec": "none",
+        "s1": "none",
+        "s2": "none",
+        "tail": "full"
+      }
+    },
+    {
+      "name": "a child reachable only through variants[].children of a private node goes with it",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "sec"
+            ]
+          },
+          "sec": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [],
+            "variants": [
+              {
+                "id": "v1",
+                "when": {
+                  "when": {
+                    "op": "truthy",
+                    "path": "user.id"
+                  }
+                },
+                "children": [
+                  "vc"
+                ]
+              }
+            ]
+          },
+          "vc": {
+            "type": "Text",
+            "props": {
+              "children": "variant-only secret"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "sec": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": []
+          }
+        },
+        "parents": {
+          "root": null
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "sec": "none",
+        "vc": "none"
+      }
+    },
+    {
+      "name": "a surviving node's variants[].children lose the private ids, keep the rest",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a"
+            ],
+            "variants": [
+              {
+                "id": "signed",
+                "when": {
+                  "when": {
+                    "op": "truthy",
+                    "path": "user.id"
+                  }
+                },
+                "children": [
+                  "a",
+                  "p"
+                ],
+                "label": "Signed in"
+              }
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "hello"
+            }
+          },
+          "p": {
+            "type": "Text",
+            "props": {
+              "children": "secret"
+            },
+            "visibility": "private"
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root",
+          "p": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a"
+            ],
+            "variants": [
+              {
+                "id": "signed",
+                "when": {
+                  "when": {
+                    "op": "truthy",
+                    "path": "user.id"
+                  }
+                },
+                "children": [
+                  "a"
+                ],
+                "label": "Signed in"
+              }
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "hello"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "a": "full",
+        "p": "none"
+      }
+    },
+    {
+      "name": "member is stripped from every node; hybrid keeps its guest values",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "card"
+            ]
+          },
+          "card": {
+            "type": "Card",
+            "visibility": "hybrid",
+            "children": [
+              "price",
+              "cta",
+              "note"
+            ]
+          },
+          "price": {
+            "type": "Text",
+            "props": {
+              "children": "from 100",
+              "tone": "muted"
+            },
+            "member": {
+              "props": {
+                "children": "80 for members"
+              }
+            }
+          },
+          "cta": {
+            "type": "Button",
+            "props": {
+              "children": "Sign up"
+            },
+            "member": {
+              "props": {
+                "children": "Book"
+              }
+            }
+          },
+          "note": {
+            "type": "Text",
+            "visibility": "public",
+            "props": {
+              "children": "same for all"
+            },
+            "member": {
+              "props": {
+                "children": "stale"
+              }
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "card": "root",
+          "price": "card",
+          "cta": "card",
+          "note": "card"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "card"
+            ]
+          },
+          "card": {
+            "type": "Card",
+            "visibility": "hybrid",
+            "children": [
+              "price",
+              "cta",
+              "note"
+            ]
+          },
+          "price": {
+            "type": "Text",
+            "props": {
+              "children": "from 100",
+              "tone": "muted"
+            }
+          },
+          "cta": {
+            "type": "Button",
+            "props": {
+              "children": "Sign up"
+            }
+          },
+          "note": {
+            "type": "Text",
+            "visibility": "public",
+            "props": {
+              "children": "same for all"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "card": "root",
+          "price": "card",
+          "cta": "card",
+          "note": "card"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "card": "guest-branch",
+        "price": "guest-branch",
+        "cta": "guest-branch",
+        "note": "full"
+      }
+    },
+    {
+      "name": "params specs pointing into the cut subtree are dropped; others, and a prior orphan, stay",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Box",
+            "children": [
+              "title",
+              "sec"
+            ]
+          },
+          "title": {
+            "type": "Text",
+            "props": {
+              "children": "Title"
+            }
+          },
+          "sec": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [
+              "code"
+            ]
+          },
+          "code": {
+            "type": "Text",
+            "props": {
+              "children": "DISCOUNT-42"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "title": "root",
+          "sec": "root",
+          "code": "sec"
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "title",
+            "prop": "children",
+            "label": "Title"
+          },
+          {
+            "name": "code",
+            "nodeId": "code",
+            "prop": "children"
+          },
+          {
+            "name": "gone",
+            "nodeId": "deleted-long-ago",
+            "prop": "children"
+          }
+        ]
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Box",
+            "children": [
+              "title"
+            ]
+          },
+          "title": {
+            "type": "Text",
+            "props": {
+              "children": "Title"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "title": "root"
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "title",
+            "prop": "children",
+            "label": "Title"
+          },
+          {
+            "name": "gone",
+            "nodeId": "deleted-long-ago",
+            "prop": "children"
+          }
+        ]
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "title": "full",
+        "sec": "none",
+        "code": "none"
+      }
+    },
+    {
+      "name": "every params spec cut: the key stays, empty",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Box",
+            "children": [
+              "p"
+            ]
+          },
+          "p": {
+            "type": "Text",
+            "visibility": "private",
+            "props": {
+              "children": "x"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "p": "root"
+        },
+        "params": [
+          {
+            "name": "x",
+            "nodeId": "p",
+            "prop": "children"
+          }
+        ]
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Box",
+            "children": []
+          }
+        },
+        "parents": {
+          "root": null
+        },
+        "params": []
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "p": "none"
+      }
+    },
+    {
+      "name": "an unknown mode string, a number and an array fail closed: cut like private",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "typo",
+              "num",
+              "arr",
+              "ok"
+            ]
+          },
+          "typo": {
+            "type": "Text",
+            "visibility": "privat",
+            "props": {
+              "children": "typo"
+            }
+          },
+          "num": {
+            "type": "Text",
+            "visibility": 0,
+            "props": {
+              "children": "number"
+            }
+          },
+          "arr": {
+            "type": "Text",
+            "visibility": [
+              "private"
+            ],
+            "props": {
+              "children": "array"
+            }
+          },
+          "ok": {
+            "type": "Text",
+            "visibility": null,
+            "props": {
+              "children": "null reads as absent"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "typo": "root",
+          "num": "root",
+          "arr": "root",
+          "ok": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "ok"
+            ]
+          },
+          "ok": {
+            "type": "Text",
+            "visibility": null,
+            "props": {
+              "children": "null reads as absent"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "ok": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "typo": "none",
+        "num": "none",
+        "arr": "none",
+        "ok": "full"
+      }
+    },
+    {
+      "name": "hybrid inside private is cut; private inside hybrid is cut; the rest of the hybrid stays",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "h",
+              "p"
+            ]
+          },
+          "h": {
+            "type": "Box",
+            "visibility": "hybrid",
+            "children": [
+              "hp",
+              "hg"
+            ],
+            "member": {
+              "props": {
+                "tone": "gold"
+              }
+            }
+          },
+          "hp": {
+            "type": "Text",
+            "visibility": "private",
+            "props": {
+              "children": "member link"
+            }
+          },
+          "hg": {
+            "type": "Text",
+            "props": {
+              "children": "guest text"
+            }
+          },
+          "p": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [
+              "ph"
+            ]
+          },
+          "ph": {
+            "type": "Text",
+            "visibility": "hybrid",
+            "props": {
+              "children": "x"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "h": "root",
+          "hp": "h",
+          "hg": "h",
+          "p": "root",
+          "ph": "p"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "h"
+            ]
+          },
+          "h": {
+            "type": "Box",
+            "visibility": "hybrid",
+            "children": [
+              "hg"
+            ]
+          },
+          "hg": {
+            "type": "Text",
+            "props": {
+              "children": "guest text"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "h": "root",
+          "hg": "h"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "h": "guest-branch",
+        "hp": "none",
+        "hg": "guest-branch",
+        "p": "none",
+        "ph": "none"
+      }
+    },
+    {
+      "name": "a hand-written child known only to the parents map goes with its private parent",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "p"
+            ]
+          },
+          "p": {
+            "type": "Box",
+            "visibility": "private",
+            "children": []
+          },
+          "stray": {
+            "type": "Text",
+            "props": {
+              "children": "detached but still private"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "p": "root",
+          "stray": "p"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": []
+          }
+        },
+        "parents": {
+          "root": null
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "p": "none",
+        "stray": "none"
+      }
+    },
+    {
+      "name": "a private root is reduced to its type",
+      "guest_render_differs": true,
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "visibility": "private",
+            "props": {
+              "title": "secret page"
+            },
+            "children": [
+              "a"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "secret"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page"
+          }
+        },
+        "parents": {
+          "root": null
+        }
+      },
+      "expect_cacheability": {
+        "root": "none",
+        "a": "none"
+      }
+    },
+    {
+      "name": "member: null is stripped like any member (the validator refuses it on read, see the S4 note)",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "h"
+            ]
+          },
+          "h": {
+            "type": "Text",
+            "visibility": "hybrid",
+            "props": {
+              "children": "guest"
+            },
+            "member": null
+          }
+        },
+        "parents": {
+          "root": null,
+          "h": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "h"
+            ]
+          },
+          "h": {
+            "type": "Text",
+            "visibility": "hybrid",
+            "props": {
+              "children": "guest"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "h": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "h": "guest-branch"
+      }
+    },
+    {
+      "name": "member on the root is stripped; a hybrid root keeps its guest props",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "visibility": "hybrid",
+            "props": {
+              "title": "Welcome"
+            },
+            "member": {
+              "props": {
+                "title": "Welcome back"
+              }
+            },
+            "children": [
+              "a"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "body"
+            },
+            "member": {
+              "props": {
+                "children": "member body"
+              }
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "visibility": "hybrid",
+            "props": {
+              "title": "Welcome"
+            },
+            "children": [
+              "a"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "body"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "a": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "guest-branch",
+        "a": "guest-branch"
+      }
+    },
+    {
+      "name": "a node listed under both a public and a private parent is cut (fail closed)",
+      "guest_render_differs": true,
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "pub",
+              "priv"
+            ]
+          },
+          "pub": {
+            "type": "Box",
+            "children": [
+              "shared",
+              "own"
+            ]
+          },
+          "priv": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [
+              "shared"
+            ]
+          },
+          "shared": {
+            "type": "Text",
+            "props": {
+              "children": "listed twice"
+            }
+          },
+          "own": {
+            "type": "Text",
+            "props": {
+              "children": "public only"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "pub": "root",
+          "priv": "root",
+          "shared": "pub",
+          "own": "pub"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "pub"
+            ]
+          },
+          "pub": {
+            "type": "Box",
+            "children": [
+              "own"
+            ]
+          },
+          "own": {
+            "type": "Text",
+            "props": {
+              "children": "public only"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "pub": "root",
+          "own": "pub"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "pub": "full",
+        "priv": "none",
+        "shared": "none",
+        "own": "full"
+      }
+    },
+    {
+      "name": "a private Ref node is cut with its params values; its block is never named in the shell",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "intro",
+              "ref"
+            ]
+          },
+          "intro": {
+            "type": "Text",
+            "props": {
+              "children": "intro"
+            }
+          },
+          "ref": {
+            "type": "Ref",
+            "visibility": "private",
+            "props": {
+              "blockId": "members-pricing",
+              "params": {
+                "price": "80"
+              }
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "intro": "root",
+          "ref": "root"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "intro"
+            ]
+          },
+          "intro": {
+            "type": "Text",
+            "props": {
+              "children": "intro"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "intro": "root"
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "intro": "full",
+        "ref": "none"
+      }
+    },
+    {
+      "name": "v1 tree: a private subtree is cut from its parent's children",
+      "doc": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "children": "open"
+              }
+            },
+            {
+              "type": "Box",
+              "visibility": "private",
+              "children": [
+                {
+                  "type": "Text",
+                  "props": {
+                    "children": "members-only price"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Text",
+              "props": {
+                "children": "footer"
+              },
+              "visibility": {
+                "when": {
+                  "op": "truthy",
+                  "path": "user.id"
+                }
+              }
+            },
+            {
+              "type": "Text",
+              "props": {
+                "children": "typo"
+              },
+              "visibility": "secret"
+            }
+          ]
+        }
+      },
+      "expect_shell": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "children": "open"
+              }
+            },
+            {
+              "type": "Text",
+              "props": {
+                "children": "footer"
+              },
+              "visibility": {
+                "when": {
+                  "op": "truthy",
+                  "path": "user.id"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "v1 tree: member is stripped from every node; hybrid keeps its guest values",
+      "doc": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "member": {
+            "props": {
+              "title": "member title"
+            }
+          },
+          "children": [
+            {
+              "type": "Text",
+              "visibility": "hybrid",
+              "props": {
+                "children": "guest greeting"
+              },
+              "member": {
+                "props": {
+                  "children": "member greeting"
+                }
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "props": {
+                    "children": "deep"
+                  },
+                  "member": {
+                    "props": {
+                      "children": "deep member"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect_shell": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "children": [
+            {
+              "type": "Text",
+              "visibility": "hybrid",
+              "props": {
+                "children": "guest greeting"
+              },
+              "children": [
+                {
+                  "type": "Text",
+                  "props": {
+                    "children": "deep"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "v1 tree: a private root is reduced to its type",
+      "guest_render_differs": true,
+      "doc": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "visibility": "private",
+          "props": {
+            "title": "secret page"
+          },
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "children": "secret"
+              }
+            }
+          ]
+        }
+      },
+      "expect_shell": {
+        "version": 1,
+        "root": {
+          "type": "Page"
+        }
+      }
+    },
+    {
+      "name": "a document carrying both root and nodes has both representations cut",
+      "doc": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "children": "open"
+              }
+            },
+            {
+              "type": "Text",
+              "props": {
+                "children": "root secret"
+              },
+              "visibility": "private"
+            }
+          ]
+        },
+        "rootId": "r",
+        "nodes": {
+          "r": {
+            "type": "Page",
+            "children": [
+              "a",
+              "s"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            }
+          },
+          "s": {
+            "type": "Text",
+            "props": {
+              "children": "nodes secret"
+            },
+            "visibility": "private",
+            "member": {
+              "props": {}
+            }
+          }
+        },
+        "parents": {
+          "r": null,
+          "a": "r",
+          "s": "r"
+        }
+      },
+      "expect_shell": {
+        "version": 1,
+        "root": {
+          "type": "Page",
+          "children": [
+            {
+              "type": "Text",
+              "props": {
+                "children": "open"
+              }
+            }
+          ]
+        },
+        "rootId": "r",
+        "nodes": {
+          "r": {
+            "type": "Page",
+            "children": [
+              "a"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            }
+          }
+        },
+        "parents": {
+          "r": null,
+          "a": "r"
+        }
+      },
+      "expect_cacheability": {
+        "r": "full",
+        "a": "full",
+        "s": "none"
+      }
+    },
+    {
+      "name": "nodes without a parents map: the cut follows children only and no parents key is invented",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a",
+              "p"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            },
+            "member": {
+              "props": {}
+            }
+          },
+          "p": {
+            "type": "Box",
+            "visibility": "private",
+            "children": [
+              "q"
+            ]
+          },
+          "q": {
+            "type": "Text",
+            "props": {
+              "children": "secret"
+            }
+          }
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Page",
+            "children": [
+              "a"
+            ]
+          },
+          "a": {
+            "type": "Text",
+            "props": {
+              "children": "open"
+            }
+          }
+        }
+      },
+      "expect_cacheability": {
+        "root": "full",
+        "a": "full",
+        "p": "none",
+        "q": "none"
+      }
+    },
+    {
+      "name": "nodes as an array (or any non-object) is not cut by index: nodes and parents are dropped, fail closed",
+      "guest_render_differs": true,
+      "doc": {
+        "version": 2,
+        "rootId": "0",
+        "nodes": [
+          {
+            "type": "Page",
+            "children": [
+              "1"
+            ]
+          },
+          {
+            "type": "Text",
+            "visibility": "private",
+            "props": {
+              "text": "SECRET"
+            }
+          }
+        ],
+        "parents": {
+          "1": "0"
+        }
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "0"
+      }
+    },
+    {
+      "name": "parents as an array: nodes and parents are dropped, fail closed",
+      "guest_render_differs": true,
+      "doc": {
+        "version": 2,
+        "rootId": "r",
+        "nodes": {
+          "r": {
+            "type": "Page",
+            "children": [
+              "s"
+            ]
+          },
+          "s": {
+            "type": "Text",
+            "visibility": "private",
+            "props": {
+              "text": "SECRET"
+            }
+          }
+        },
+        "parents": [
+          [
+            "s",
+            "r"
+          ]
+        ]
+      },
+      "expect_shell": {
+        "version": 2,
+        "rootId": "r"
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Workspace site (SDL-685): server-renders the published page of a workspace by the request Host.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit && tsc --noEmit -p test/tsconfig.json",
+    "test:ssr": "tsx --test test/ssr.test.ts test/site-api.test.ts",
+    "test:unit": "tsx --test test/site-api.test.ts",
+    "test:e2e": "playwright test",
+    "stand": "tsx test/stand.ts",
+    "clean": "rm -rf .next node_modules"
+  },
+  "dependencies": {
+    "@markerloop/engine": "workspace:*",
+    "@markerloop/studio": "workspace:*",
+    "@markerloop/ui": "workspace:*",
+    "@sentry/nextjs": "^10.69.0",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-hook-form": "catalog:"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "^20",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.0",
+    "tsx": "^4.23.5",
+    "typescript": "^5"
+  }
+}

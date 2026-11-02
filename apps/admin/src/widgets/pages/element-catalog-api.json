@@ -1,0 +1,3569 @@
+{
+  "catalogVersion": "bc8eb6d265f33e136fa8174ed9e537d686157647d4d253410a9a72f1f2a8b69c",
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "elements": [
+    {
+      "type": "Accordion",
+      "displayName": "Accordion",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Open",
+            "description": "single: one item open at a time; multiple: each item opens on its own.",
+            "default": "multiple",
+            "type": "string",
+            "enum": [
+              "single",
+              "multiple"
+            ]
+          },
+          "collapsible": {
+            "title": "Can close the open item",
+            "description": "Only for single; ignored for multiple.",
+            "type": "boolean"
+          },
+          "defaultValue": {
+            "title": "Open item",
+            "description": "The value of the item that is open when the page loads (single).",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Раскрывающиеся пункты.",
+        "allowedParents": null,
+        "allowedChildren": [
+          "AccordionItem"
+        ],
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Accordion",
+        "propsVersion": 1,
+        "props": {
+          "type": "single",
+          "collapsible": true
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AccordionContent",
+      "displayName": "AccordionContent",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Содержимое пункта.",
+        "allowedParents": [
+          "AccordionItem"
+        ],
+        "allowedChildren": null,
+        "partOf": "Accordion",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AccordionContent",
+        "propsVersion": 1,
+        "props": {
+          "children": "Answer"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AccordionItem",
+      "displayName": "AccordionItem",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Item value",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Пункт аккордеона: заголовок и содержимое.",
+        "allowedParents": [
+          "Accordion"
+        ],
+        "allowedChildren": [
+          "AccordionTrigger",
+          "AccordionContent"
+        ],
+        "partOf": "Accordion",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AccordionItem",
+        "propsVersion": 1,
+        "props": {
+          "value": "item-1"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AccordionTrigger",
+      "displayName": "AccordionTrigger",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Title",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Заголовок пункта; раскрывает содержимое.",
+        "allowedParents": [
+          "AccordionItem"
+        ],
+        "allowedChildren": null,
+        "partOf": "Accordion",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AccordionTrigger",
+        "propsVersion": 1,
+        "props": {
+          "children": "Question"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AccordionView",
+      "displayName": "Accordion",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 1,
+            "maxItems": 30,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "label",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "single",
+              "multiple"
+            ]
+          },
+          "collapsible": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "items",
+          "type",
+          "collapsible"
+        ],
+        "additionalProperties": false
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Collapsible items with their titles and text; drop a block inside to fill an item — the n-th block goes to the n-th item.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AccordionView",
+        "propsVersion": 1,
+        "props": {
+          "items": [
+            {
+              "label": "What is it?",
+              "text": "A short answer."
+            },
+            {
+              "label": "How does it work?",
+              "text": "A longer answer."
+            }
+          ],
+          "type": "single",
+          "collapsible": true
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ActionCardLink",
+      "displayName": "ActionCardLink",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title"
+        ]
+      },
+      "meta": {
+        "category": "Primitives",
+        "description": "Карточка-ссылка с заголовком.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ActionCardLink",
+        "propsVersion": 1,
+        "props": {
+          "href": "#",
+          "title": "Новая ссылка"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Alert",
+      "displayName": "Alert",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Message",
+            "type": "string"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "default",
+              "destructive"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Alert",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Avatar",
+      "displayName": "Avatar",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "size": {
+            "title": "Size",
+            "description": "Diameter step: 8, 10 or 12 (2, 2.5 or 3 rem).",
+            "default": 8,
+            "type": "number"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Avatar",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AvatarFallback",
+      "displayName": "AvatarFallback",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Initials",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Avatar"
+        ],
+        "allowedChildren": null,
+        "partOf": "Avatar",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AvatarFallback",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "AvatarImage",
+      "displayName": "AvatarImage",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "alt": {
+            "title": "Alt text",
+            "type": "string"
+          },
+          "src": {
+            "title": "Source",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Avatar"
+        ],
+        "allowedChildren": null,
+        "partOf": "Avatar",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "AvatarImage",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Badge",
+      "displayName": "Badge",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          },
+          "tone": {
+            "title": "Tone",
+            "description": "Дополнительная “окраска” без className в приложении",
+            "type": "string",
+            "enum": [
+              "red",
+              "green",
+              "orange"
+            ]
+          },
+          "variant": {
+            "title": "Variant",
+            "type": "string",
+            "enum": [
+              "link",
+              "default",
+              "destructive",
+              "outline",
+              "secondary",
+              "ghost",
+              "component"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Primitives",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Badge",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Box",
+      "displayName": "Box",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "direction": {
+            "default": "column",
+            "type": "string",
+            "enum": [
+              "column",
+              "row"
+            ]
+          },
+          "gap": {
+            "default": 4,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          },
+          "padding": {
+            "default": 4,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          },
+          "align": {
+            "default": "stretch",
+            "type": "string",
+            "enum": [
+              "start",
+              "center",
+              "end",
+              "stretch"
+            ]
+          },
+          "columns": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "background": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "surface",
+                  "muted"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-z][A-Za-z0-9_-]{0,31}$"
+              }
+            ]
+          },
+          "border": {
+            "type": "boolean"
+          },
+          "radius": {
+            "type": "string",
+            "enum": [
+              "theme",
+              "none"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Layout",
+        "description": "A container that lines its children up in a column or a row.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": false,
+        "validationNote": "Validation is stricter than propsSchema: background is one of the listed values or the key of a custom colour of the site theme (SDL-950) — a lowercase Latin letter, then Latin letters, digits, - and _, up to 32 characters, and not a reserved word (the eight theme roles, default, none, dark, light, inverse, transparent, inherit, initial, unset, revert, revert-layer, currentColor; compared without case). A key the published theme does not have renders as no fill"
+      },
+      "example": {
+        "type": "Box",
+        "propsVersion": 1,
+        "props": {
+          "direction": "column",
+          "gap": 4,
+          "padding": 4,
+          "align": "stretch"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Button",
+      "displayName": "Button",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          },
+          "variant": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "link",
+              "default",
+              "destructive",
+              "outline",
+              "secondary",
+              "ghost",
+              "ghost-destructive"
+            ]
+          },
+          "size": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "icon",
+              "default",
+              "xs",
+              "sm",
+              "lg",
+              "icon-xs",
+              "icon-sm",
+              "icon-lg"
+            ]
+          },
+          "fullWidth": {
+            "description": "Позволяет сделать кнопку на всю ширину без className",
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Primitives",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Button",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Card",
+      "displayName": "Card",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "fullWidth": {
+            "description": "Позволяет сделать карточку на всю ширину без className",
+            "type": "boolean"
+          },
+          "maxWidth": {
+            "description": "Позволяет задать max-width (px) без className",
+            "type": "number"
+          },
+          "padding": {
+            "description": "Отступ внутри (EP-185, слой 2 редизайна). Не задан — 24 px, а в админке\n(`[data-surface]`) 16 px: стоковые 24 там велики, 23 экрана обнуляли их\nвручную. `none` — экран рисует отступ сам. Сайты клиентов атрибута\ndata-surface не ставят и видят прежние 24.",
+            "type": "string",
+            "enum": [
+              "none",
+              "default",
+              "compact"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Card",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardAction",
+      "displayName": "CardAction",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CardHeader"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardAction",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardContent",
+      "displayName": "CardContent",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Card"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardContent",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardDescription",
+      "displayName": "CardDescription",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Description",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CardHeader"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardDescription",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardFooter",
+      "displayName": "CardFooter",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Card"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardFooter",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardHeader",
+      "displayName": "CardHeader",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Card"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardHeader",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardTitle",
+      "displayName": "CardTitle",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Title",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CardHeader"
+        ],
+        "allowedChildren": null,
+        "partOf": "Card",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardTitle",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CardView",
+      "displayName": "Card",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 400
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "footer": {
+            "type": "string",
+            "maxLength": 400
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "A card with a title, a line of description, text and a footer; blocks dropped inside go to its body.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CardView",
+        "propsVersion": 1,
+        "props": {
+          "title": "Card title",
+          "description": "A short description",
+          "text": "Card text."
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Code",
+      "displayName": "Code",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Code",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Code",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Command",
+      "displayName": "Command",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "disablePointerSelection": {
+            "description": "Optionally set to `true` to disable selection via pointer events.",
+            "type": "boolean"
+          },
+          "label": {
+            "description": "Accessible label for this command menu. Not shown visibly.",
+            "type": "string"
+          },
+          "loop": {
+            "description": "Optionally set to `true` to turn on looping around when using the arrow keys.",
+            "type": "boolean"
+          },
+          "shouldFilter": {
+            "description": "Optionally set to `false` to turn off the automatic filtering and sorting.\nIf `false`, you must conditionally render valid items based on the search query yourself.",
+            "type": "boolean"
+          },
+          "vimBindings": {
+            "description": "Set to `false` to disable ctrl+n/j/p/k shortcuts. Defaults to `true`.",
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Command",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandDialog",
+      "displayName": "CommandDialog",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "description": {
+            "default": "Search for a command to run...",
+            "type": "string"
+          },
+          "showCloseButton": {
+            "default": false,
+            "type": "boolean"
+          },
+          "title": {
+            "default": "Command Palette",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandDialog",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandEmpty",
+      "displayName": "CommandEmpty",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Empty state text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CommandList"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandEmpty",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandGroup",
+      "displayName": "CommandGroup",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "forceMount": {
+            "description": "Whether this group is forcibly rendered regardless of filtering.",
+            "type": "boolean"
+          },
+          "value": {
+            "description": "If no heading is provided, you must provide a value that is unique for this group.",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CommandList"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandGroup",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandInput",
+      "displayName": "CommandInput",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "placeholder": {
+            "title": "Placeholder",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Command"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandInput",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandItem",
+      "displayName": "CommandItem",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Command name",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Whether this item is currently disabled.",
+            "type": "boolean"
+          },
+          "forceMount": {
+            "description": "Whether this item is forcibly rendered regardless of filtering.",
+            "type": "boolean"
+          },
+          "value": {
+            "description": "A unique value for this item.\nIf no value is provided, it will be inferred from `children` or the rendered `textContent`. If your `textContent` changes between renders, you _must_ provide a stable, unique `value`.",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CommandList"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandItem",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandList",
+      "displayName": "CommandList",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "label": {
+            "description": "Accessible label for this List of suggestions. Not shown visibly.",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Command"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandList",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandSeparator",
+      "displayName": "CommandSeparator",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "alwaysRender": {
+            "description": "Whether this separator should always be rendered. Useful if you disable automatic filtering.",
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CommandList"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandSeparator",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "CommandShortcut",
+      "displayName": "CommandShortcut",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Shortcut",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "CommandItem"
+        ],
+        "allowedChildren": null,
+        "partOf": "Command",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "CommandShortcut",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "DataView",
+      "displayName": "Data view",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "collection"
+                ]
+              },
+              "workspace_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "collection_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "collection_key": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,62}$"
+              }
+            },
+            "required": [
+              "kind",
+              "workspace_id",
+              "collection_id"
+            ],
+            "additionalProperties": false
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,62}$"
+            }
+          },
+          "sort": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,62}$"
+              },
+              "direction": {
+                "type": "string",
+                "enum": [
+                  "asc",
+                  "desc"
+                ]
+              }
+            },
+            "required": [
+              "field",
+              "direction"
+            ],
+            "additionalProperties": false
+          },
+          "filter": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]{0,62}$"
+                },
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "eq",
+                    "ne",
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte",
+                    "in",
+                    "like",
+                    "null"
+                  ]
+                },
+                "value": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "field",
+                "op",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "presets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "filter": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-z0-9_]{0,62}$"
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "ne",
+                          "gt",
+                          "gte",
+                          "lt",
+                          "lte",
+                          "in",
+                          "like",
+                          "null"
+                        ]
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "op",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "filter"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "source",
+          "fields",
+          "sort",
+          "filter",
+          "presets",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "meta": {
+        "category": "Data",
+        "description": "Records of a collection as a list, with a sort, a filter and tab presets.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": false,
+        "validationNote": "Validation is stricter than propsSchema: the engine parses these props with the full zod schema (the DataView renderer and the editor), and props that fail it render as an unbound DataView. On top of propsSchema: a filter clause with op \"null\" takes a boolean value (true = is null); preset ids are unique; a field+op pair appears at most once in the base filter, and at most once in each preset's filter taken together with the base filter (the request carries one value per filter[field][op])"
+      },
+      "example": {
+        "type": "DataView",
+        "propsVersion": 1,
+        "props": {
+          "fields": [],
+          "sort": {
+            "field": "created_at",
+            "direction": "desc"
+          },
+          "filter": [],
+          "presets": [],
+          "limit": 20
+        }
+      },
+      "exampleMissing": [
+        "source"
+      ]
+    },
+    {
+      "type": "EmptyState",
+      "displayName": "EmptyState",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "align": {
+            "default": "center",
+            "type": "string",
+            "enum": [
+              "center",
+              "start"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "EmptyState",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "IconGallery",
+      "displayName": "IconGallery",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "description": {
+            "default": "Коллекция иконок на базе lucide-react.",
+            "type": "string"
+          },
+          "size": {
+            "default": 20,
+            "type": "number"
+          },
+          "title": {
+            "default": "Иконки",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "IconGallery",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Image",
+      "displayName": "Image",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "src": {
+            "type": "string"
+          },
+          "alt": {
+            "default": "",
+            "type": "string"
+          },
+          "fit": {
+            "default": "cover",
+            "type": "string",
+            "enum": [
+              "cover",
+              "contain",
+              "fill",
+              "none",
+              "scale-down"
+            ]
+          },
+          "aspect": {
+            "default": "auto",
+            "type": "string",
+            "enum": [
+              "auto",
+              "16 / 9",
+              "4 / 3",
+              "3 / 2",
+              "1 / 1",
+              "3 / 4",
+              "9 / 16"
+            ]
+          },
+          "radius": {
+            "type": "string",
+            "enum": [
+              "theme",
+              "none",
+              "full"
+            ]
+          },
+          "focus": {
+            "description": "Focus point: the part of the picture kept in view when it is cropped (fit cover in a frame of another shape). CSS object-position x% y%. Absent = the centre.",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Percent from the left edge, 0-100."
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100,
+                "description": "Percent from the top edge, 0-100."
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ]
+          },
+          "width": {
+            "description": "Width: fill = the container's width, hug = the picture's own width, fixed = fixedWidth px. Never wider than the container. Absent = the picture's own width, or the container's when aspect is set.",
+            "type": "string",
+            "enum": [
+              "fill",
+              "hug",
+              "fixed"
+            ]
+          },
+          "fixedWidth": {
+            "description": "Width in px when width is fixed (40-4000; absent = 480). Ignored otherwise.",
+            "type": "integer",
+            "minimum": 40,
+            "maximum": 4000
+          },
+          "border": {
+            "description": "Border: a 1px line in borderColor. Absent or false = no border.",
+            "type": "boolean"
+          },
+          "borderColor": {
+            "description": "Colour of the border, a role of the site theme. Absent = border. Ignored without border.",
+            "type": "string",
+            "enum": [
+              "background",
+              "surface",
+              "muted",
+              "text",
+              "textMuted",
+              "primary",
+              "primaryForeground",
+              "border"
+            ]
+          },
+          "shadow": {
+            "description": "Shadow: the site theme's shadow. Absent or false = no shadow.",
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Media",
+        "description": "A picture. Until it has an address it shows an empty frame.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Image",
+        "propsVersion": 1,
+        "props": {
+          "alt": "",
+          "fit": "cover",
+          "aspect": "auto"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroup",
+      "displayName": "InputGroup",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroup",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroupAddon",
+      "displayName": "InputGroupAddon",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "align": {
+            "default": "inline-start",
+            "type": "string",
+            "enum": [
+              "inline-start",
+              "inline-end",
+              "block-start",
+              "block-end"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": [
+          "InputGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "InputGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroupAddon",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroupButton",
+      "displayName": "InputGroupButton",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          },
+          "fullWidth": {
+            "description": "Позволяет сделать кнопку на всю ширину без className",
+            "type": "boolean"
+          },
+          "size": {
+            "default": "xs",
+            "type": "string",
+            "enum": [
+              "xs",
+              "sm",
+              "icon-xs",
+              "icon-sm"
+            ]
+          },
+          "variant": {
+            "default": "ghost",
+            "type": "string",
+            "enum": [
+              "link",
+              "default",
+              "destructive",
+              "outline",
+              "secondary",
+              "ghost",
+              "ghost-destructive"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": [
+          "InputGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "InputGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroupButton",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroupInput",
+      "displayName": "InputGroupInput",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "placeholder": {
+            "title": "Placeholder",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": [
+          "InputGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "InputGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroupInput",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroupText",
+      "displayName": "InputGroupText",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": [
+          "InputGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "InputGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroupText",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "InputGroupTextarea",
+      "displayName": "InputGroupTextarea",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "placeholder": {
+            "title": "Placeholder",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Forms",
+        "description": null,
+        "allowedParents": [
+          "InputGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "InputGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "InputGroupTextarea",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Link",
+      "displayName": "Link",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "text": {
+            "default": "Link",
+            "type": "string"
+          },
+          "href": {
+            "default": "#",
+            "type": "string"
+          },
+          "target": {
+            "default": "_self",
+            "type": "string",
+            "enum": [
+              "_self",
+              "_blank"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Text",
+        "description": "A link to another page or site.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Link",
+        "propsVersion": 1,
+        "props": {
+          "text": "Link",
+          "href": "#",
+          "target": "_self"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ListHeader",
+      "displayName": "ListHeader",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ListHeader",
+        "propsVersion": 1,
+        "props": {
+          "title": "List title"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Page",
+      "displayName": "Page",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Layout",
+        "description": "The document root: everything on the page lives inside it.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Page",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Ref",
+      "displayName": "Component",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "blockId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "params": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string"
+            },
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "blockId"
+        ]
+      },
+      "meta": {
+        "category": "Components",
+        "description": "A reference to one of the workspace's Components: edits to the Component reach every page it sits on.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Ref",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": [
+        "blockId"
+      ]
+    },
+    {
+      "type": "ResizableHandle",
+      "displayName": "ResizableHandle",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "disableDoubleClick": {
+            "description": "When true, double-clicking this `Separator` will not reset its `Panel` to its default size.",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "When disabled, the separator cannot be used to resize its neighboring panels.\n\nℹ️ The panels may still be resized indirectly (while other panels are being resized).\nTo prevent a panel from being resized at all, it needs to also be disabled.",
+            "type": "boolean"
+          },
+          "withHandle": {
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "ResizablePanelGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "ResizablePanelGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ResizableHandle",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ResizablePanel",
+      "displayName": "ResizablePanel",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "collapsible": {
+            "description": "This panel can be collapsed.\n\nℹ️ A collapsible panel will collapse when it's size is less than of the specified `minSize`",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "When disabled, a panel cannot be resized either directly or indirectly (by resizing another panel).",
+            "type": "boolean"
+          },
+          "groupResizeBehavior": {
+            "description": "How should this Panel behave if the parent Group is resized?\nDefaults to `preserve-relative-size`.\n\n- `preserve-relative-size`: Retain the current relative size (as a percentage of the Group)\n- `preserve-pixel-size`: Retain its current size (in pixels)\n\nℹ️ Panel min/max size constraints may impact this behavior.\n\n⚠️ A Group must contain at least one Panel with `preserve-relative-size` resize behavior.",
+            "type": "string",
+            "enum": [
+              "preserve-relative-size",
+              "preserve-pixel-size"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "ResizablePanelGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "ResizablePanelGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ResizablePanel",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ResizablePanelGroup",
+      "displayName": "ResizablePanelGroup",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "disableCursor": {
+            "description": "This library sets custom mouse cursor styles to indicate drag state.\nUse this prop to disable that behavior for Panels and Separators in this group.",
+            "type": "boolean"
+          },
+          "disabled": {
+            "description": "Disable resize functionality.",
+            "type": "boolean"
+          },
+          "orientation": {
+            "description": "Specifies the resizable orientation (\"horizontal\" or \"vertical\"); defaults to \"horizontal\"",
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ResizablePanelGroup",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ScrollArea",
+      "displayName": "ScrollArea",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Scrollbar visibility",
+            "default": "hover",
+            "type": "string",
+            "enum": [
+              "hover",
+              "scroll",
+              "auto",
+              "always"
+            ]
+          },
+          "scrollHideDelay": {
+            "title": "Hide delay, ms",
+            "description": "How long the scrollbar stays after the pointer leaves (types hover and scroll).",
+            "default": 600,
+            "type": "number"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ScrollArea",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ScrollBar",
+      "displayName": "ScrollBar",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "orientation": {
+            "title": "Orientation",
+            "default": "vertical",
+            "type": "string",
+            "enum": [
+              "vertical",
+              "horizontal"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "ScrollArea"
+        ],
+        "allowedChildren": null,
+        "partOf": "ScrollArea",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ScrollBar",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Section",
+      "displayName": "Section",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "background": {
+            "default": "default",
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "default",
+                  "muted",
+                  "primary",
+                  "dark"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-z][A-Za-z0-9_-]{0,31}$"
+              }
+            ]
+          },
+          "align": {
+            "default": "left",
+            "type": "string",
+            "enum": [
+              "left",
+              "center"
+            ]
+          },
+          "padding": {
+            "default": "md",
+            "type": "string",
+            "enum": [
+              "sm",
+              "md",
+              "lg"
+            ]
+          },
+          "width": {
+            "type": "string",
+            "enum": [
+              "narrow",
+              "default",
+              "wide",
+              "full"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Layout",
+        "description": "A band of the page: background, alignment and vertical padding.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": false,
+        "validationNote": "Validation is stricter than propsSchema: background is one of the listed values or the key of a custom colour of the site theme (SDL-950) — a lowercase Latin letter, then Latin letters, digits, - and _, up to 32 characters, and not a reserved word (the eight theme roles, default, none, dark, light, inverse, transparent, inherit, initial, unset, revert, revert-layer, currentColor; compared without case). A key the published theme does not have renders as the default band (no fill)"
+      },
+      "example": {
+        "type": "Section",
+        "propsVersion": 1,
+        "props": {
+          "background": "default",
+          "align": "left",
+          "padding": "md"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Separator",
+      "displayName": "Separator",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "orientation": {
+            "title": "Orientation",
+            "default": "horizontal",
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          },
+          "decorative": {
+            "title": "Decorative",
+            "description": "Hidden from assistive technology; turn off when the line separates content semantically.",
+            "default": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "meta": {
+        "category": "Primitives",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Separator",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Sheet",
+      "displayName": "Sheet",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Sheet",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetClose",
+      "displayName": "SheetClose",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Sheet"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetClose",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetContent",
+      "displayName": "SheetContent",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "showCloseButton": {
+            "default": true,
+            "type": "boolean"
+          },
+          "side": {
+            "default": "right",
+            "type": "string",
+            "enum": [
+              "top",
+              "right",
+              "bottom",
+              "left"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Sheet"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetContent",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetDescription",
+      "displayName": "SheetDescription",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Description",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "SheetContent"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetDescription",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetFooter",
+      "displayName": "SheetFooter",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "SheetContent"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetFooter",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetHeader",
+      "displayName": "SheetHeader",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "SheetContent"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetHeader",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetTitle",
+      "displayName": "SheetTitle",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Title",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "SheetContent"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetTitle",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "SheetTrigger",
+      "displayName": "SheetTrigger",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Sheet"
+        ],
+        "allowedChildren": null,
+        "partOf": "Sheet",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "SheetTrigger",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Skeleton",
+      "displayName": "Skeleton",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "number"
+          }
+        }
+      },
+      "meta": {
+        "category": "Primitives",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Skeleton",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Switch",
+      "displayName": "Switch",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "size": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "default",
+              "sm"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Switch",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Table",
+      "displayName": "Table",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "layout": {
+            "default": "auto",
+            "type": "string",
+            "enum": [
+              "auto",
+              "fixed"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Таблица. Разрешает только table-примитивы внутри.",
+        "allowedParents": null,
+        "allowedChildren": [
+          "TableHeader",
+          "TableBody",
+          "TableFooter",
+          "TableCaption"
+        ],
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Table",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableBody",
+      "displayName": "TableBody",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Тело таблицы.",
+        "allowedParents": [
+          "Table"
+        ],
+        "allowedChildren": [
+          "TableRow"
+        ],
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableBody",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableCaption",
+      "displayName": "TableCaption",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Caption",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Подпись таблицы.",
+        "allowedParents": [
+          "Table"
+        ],
+        "allowedChildren": null,
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableCaption",
+        "propsVersion": 1,
+        "props": {
+          "children": "Caption"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableCell",
+      "displayName": "TableCell",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Ячейка (td).",
+        "allowedParents": [
+          "TableRow"
+        ],
+        "allowedChildren": null,
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableCell",
+        "propsVersion": 1,
+        "props": {
+          "children": "Cell"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableFooter",
+      "displayName": "TableFooter",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Футер таблицы.",
+        "allowedParents": [
+          "Table"
+        ],
+        "allowedChildren": [
+          "TableRow"
+        ],
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableFooter",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableHead",
+      "displayName": "TableHead",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Ячейка заголовка (th).",
+        "allowedParents": [
+          "TableRow"
+        ],
+        "allowedChildren": null,
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableHead",
+        "propsVersion": 1,
+        "props": {
+          "children": "Head"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableHeader",
+      "displayName": "TableHeader",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Шапка таблицы.",
+        "allowedParents": [
+          "Table"
+        ],
+        "allowedChildren": [
+          "TableRow"
+        ],
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableHeader",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableKit",
+      "displayName": "TableKit",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "layout": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "fixed"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableKit",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableRow",
+      "displayName": "TableRow",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {}
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Строка таблицы.",
+        "allowedParents": [
+          "TableHeader",
+          "TableBody",
+          "TableFooter"
+        ],
+        "allowedChildren": [
+          "TableCell",
+          "TableHead"
+        ],
+        "partOf": "Table",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableRow",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TableView",
+      "displayName": "Table",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "caption": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "header": {
+            "type": "boolean"
+          },
+          "rows": {
+            "minItems": 1,
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "minItems": 1,
+              "maxItems": 12,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 500
+              }
+            }
+          },
+          "bordered": {
+            "type": "boolean"
+          },
+          "striped": {
+            "type": "boolean"
+          },
+          "compact": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "header",
+          "rows"
+        ],
+        "additionalProperties": false
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "A table of text cells; the first row can be its header.",
+        "allowedParents": null,
+        "allowedChildren": [],
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TableView",
+        "propsVersion": 1,
+        "props": {
+          "header": true,
+          "rows": [
+            [
+              "Plan",
+              "Price"
+            ],
+            [
+              "Basic",
+              "$10"
+            ]
+          ]
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Tabs",
+      "displayName": "Tabs",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "defaultValue": {
+            "title": "Open tab",
+            "description": "The value of the tab trigger that is open when the page loads.",
+            "type": "string"
+          },
+          "orientation": {
+            "title": "Orientation",
+            "default": "horizontal",
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": false,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Tabs",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TabsContent",
+      "displayName": "TabsContent",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "Tab value",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Tabs"
+        ],
+        "allowedChildren": null,
+        "partOf": "Tabs",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TabsContent",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TabsList",
+      "displayName": "TabsList",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "variant": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "line",
+              "default"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "Tabs"
+        ],
+        "allowedChildren": null,
+        "partOf": "Tabs",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TabsList",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TabsTrigger",
+      "displayName": "TabsTrigger",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Tab label",
+            "type": "string"
+          },
+          "value": {
+            "title": "Tab value",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "TabsList"
+        ],
+        "allowedChildren": null,
+        "partOf": "Tabs",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TabsTrigger",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "TabsView",
+      "displayName": "Tabs",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "items": {
+            "minItems": 1,
+            "maxItems": 12,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "label",
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "orientation": {
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          }
+        },
+        "required": [
+          "items",
+          "orientation"
+        ],
+        "additionalProperties": false
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": "Tabs with their labels and text; drop a block inside to fill a tab — the n-th block goes to the n-th tab.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "TabsView",
+        "propsVersion": 1,
+        "props": {
+          "items": [
+            {
+              "label": "Overview",
+              "text": "What this is about."
+            },
+            {
+              "label": "Details",
+              "text": "The finer points."
+            }
+          ],
+          "orientation": "horizontal"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Text",
+      "displayName": "Text",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "level": {
+            "default": "body",
+            "type": "string",
+            "enum": [
+              "display",
+              "h1",
+              "h2",
+              "h3",
+              "lead",
+              "body",
+              "caption"
+            ]
+          },
+          "text": {
+            "default": "Some text",
+            "type": "string"
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "default",
+                  "muted",
+                  "primary",
+                  "inverse"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-z][A-Za-z0-9_-]{0,31}$"
+              }
+            ]
+          },
+          "align": {
+            "type": "string",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ]
+          },
+          "weight": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "medium",
+              "bold"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Text",
+        "description": "Text at any level — from h1 down to a caption.",
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": false,
+        "validationNote": "Validation is stricter than propsSchema: color is one of the listed values or the key of a custom colour of the site theme (SDL-950) — a lowercase Latin letter, then Latin letters, digits, - and _, up to 32 characters, and not a reserved word (the eight theme roles, default, none, dark, light, inverse, transparent, inherit, initial, unset, revert, revert-layer, currentColor; compared without case). A key the published theme does not have renders in the default colour"
+      },
+      "example": {
+        "type": "Text",
+        "propsVersion": 1,
+        "props": {
+          "level": "body",
+          "text": "Some text"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "Toggle",
+      "displayName": "Toggle",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          },
+          "size": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "default",
+              "sm",
+              "lg"
+            ]
+          },
+          "variant": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "default",
+              "outline"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "Toggle",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ToggleGroup",
+      "displayName": "ToggleGroup",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "string",
+            "enum": [
+              "default",
+              "sm",
+              "lg"
+            ]
+          },
+          "spacing": {
+            "default": 2,
+            "type": "number"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "default",
+              "outline"
+            ]
+          },
+          "type": {
+            "title": "Selection mode",
+            "type": "string",
+            "enum": [
+              "single",
+              "multiple"
+            ]
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": null,
+        "allowedChildren": null,
+        "partOf": null,
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ToggleGroup",
+        "propsVersion": 1,
+        "props": {
+          "type": "single"
+        }
+      },
+      "exampleMissing": []
+    },
+    {
+      "type": "ToggleGroupItem",
+      "displayName": "ToggleGroupItem",
+      "propsVersion": 1,
+      "propsSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "children": {
+            "title": "Text",
+            "type": "string"
+          },
+          "size": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "default",
+              "sm",
+              "lg"
+            ]
+          },
+          "variant": {
+            "default": "default",
+            "type": "string",
+            "enum": [
+              "default",
+              "outline"
+            ]
+          },
+          "value": {
+            "title": "Value",
+            "type": "string"
+          }
+        }
+      },
+      "meta": {
+        "category": "Widgets",
+        "description": null,
+        "allowedParents": [
+          "ToggleGroup"
+        ],
+        "allowedChildren": null,
+        "partOf": "ToggleGroup",
+        "insertable": true,
+        "schemaComplete": true,
+        "validationNote": null
+      },
+      "example": {
+        "type": "ToggleGroupItem",
+        "propsVersion": 1,
+        "props": {}
+      },
+      "exampleMissing": []
+    }
+  ]
+}

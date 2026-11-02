@@ -1,0 +1,15 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# One React / Next for the whole workspace (SDL-603). Packages take these as
+# devDependencies (their public contract is the peerDependencies range), the
+# admin takes them as dependencies — both through `catalog:`, so a package can
+# never build or test against a different React than the one the admin ships.
+catalog:
+  next: 16.1.0
+  react: 19.2.3
+  react-dom: 19.2.3
+  react-hook-form: ^7.69.0
+  '@types/react': ^19
+  '@types/react-dom': ^19

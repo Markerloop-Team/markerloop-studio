@@ -1,0 +1,309 @@
+{
+  "_comment": [
+    "SDL-624: shared fixture for the mlfile: reference form. Copied verbatim into",
+    "pages-service/internal/filerefs/testdata/ (no cross-service imports).",
+    "Each case: `doc` is a plain page schema (v2: rootId, nodes, parents, optional params);",
+    "`expect_refs` are the file ids collectFileRefs / filerefs.Extract must return, lowercase;",
+    "`expect_violations` are the `src` values findFilePathProps / filerefs.Validate must refuse,",
+    "`pointer` is an RFC 6901 JSON pointer relative to `doc`.",
+    "Ordering: the engine returns refs in order of appearance, the Go side sorts. The ids in every",
+    "multi-ref case are chosen so that both orders coincide; a JS-only test covers appearance order."
+  ],
+  "cases": [
+    {
+      "name": "src on a node",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": { "type": "Box", "children": ["img"] },
+          "img": { "type": "Image", "props": { "src": "mlfile:0a1b2c3d-1111-4111-8111-000000000001", "alt": "A" } }
+        },
+        "parents": { "root": null, "img": "root" }
+      },
+      "expect_refs": ["0a1b2c3d-1111-4111-8111-000000000001"],
+      "expect_violations": []
+    },
+    {
+      "name": "src inside variants[].props",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": {
+          "img": {
+            "type": "Image",
+            "props": { "alt": "A" },
+            "variants": [
+              { "id": "v1", "when": { "when": { "op": "truthy", "path": "user" } }, "props": { "src": "mlfile:0a1b2c3d-2222-4222-8222-000000000002" } }
+            ]
+          }
+        },
+        "parents": { "img": null }
+      },
+      "expect_refs": ["0a1b2c3d-2222-4222-8222-000000000002"],
+      "expect_violations": []
+    },
+    {
+      "name": "mlfile inside params of a ref node",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": { "type": "Box", "children": ["ref1"] },
+          "ref1": { "type": "Ref", "props": { "blockId": "pic", "params": { "photo": "mlfile:0a1b2c3d-3333-4333-8333-000000000003" } } }
+        },
+        "parents": { "root": null, "ref1": "root" }
+      },
+      "expect_refs": ["0a1b2c3d-3333-4333-8333-000000000003"],
+      "expect_violations": []
+    },
+    {
+      "name": "nested arrays and objects",
+      "doc": {
+        "version": 2,
+        "rootId": "g",
+        "nodes": {
+          "g": {
+            "type": "Gallery",
+            "props": {
+              "items": [
+                { "src": "mlfile:0a1b2c3d-4444-4444-8444-000000000004", "caption": "one" },
+                { "src": "https://cdn.example/two.png", "caption": "two" }
+              ],
+              "deep": [["mlfile:0a1b2c3d-5555-4555-8555-000000000005"]]
+            }
+          }
+        },
+        "parents": { "g": null }
+      },
+      "expect_refs": ["0a1b2c3d-4444-4444-8444-000000000004", "0a1b2c3d-5555-4555-8555-000000000005"],
+      "expect_violations": []
+    },
+    {
+      "name": "duplicates are reported once",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": { "type": "Box", "children": ["a", "b"] },
+          "a": {
+            "type": "Image",
+            "props": { "src": "mlfile:0a1b2c3d-6666-4666-8666-000000000006" },
+            "variants": [
+              { "id": "v1", "when": { "when": { "op": "truthy", "path": "user" } }, "props": { "src": "mlfile:0a1b2c3d-6666-4666-8666-000000000006" } }
+            ]
+          },
+          "b": { "type": "Image", "props": { "src": "mlfile:0a1b2c3d-6666-4666-8666-000000000006" } }
+        },
+        "parents": { "root": null, "a": "root", "b": "root" }
+      },
+      "expect_refs": ["0a1b2c3d-6666-4666-8666-000000000006"],
+      "expect_violations": []
+    },
+    {
+      "name": "uppercase UUID is normalised to lowercase",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": {
+          "img": { "type": "Image", "props": { "src": "mlfile:0A1B2C3D-7777-4777-8777-00000000000A" } }
+        },
+        "parents": { "img": null }
+      },
+      "expect_refs": ["0a1b2c3d-7777-4777-8777-00000000000a"],
+      "expect_violations": []
+    },
+    {
+      "name": "bare UUID in text is not a ref",
+      "doc": {
+        "version": 2,
+        "rootId": "t",
+        "nodes": {
+          "t": { "type": "Text", "props": { "text": "0a1b2c3d-8888-4888-8888-000000000008" } }
+        },
+        "parents": { "t": null }
+      },
+      "expect_refs": [],
+      "expect_violations": []
+    },
+    {
+      "name": "mlfile inside a longer string is not a ref",
+      "doc": {
+        "version": 2,
+        "rootId": "t",
+        "nodes": {
+          "t": { "type": "Text", "props": { "text": "see mlfile:0a1b2c3d-9999-4999-8999-000000000009 for details" } }
+        },
+        "parents": { "t": null }
+      },
+      "expect_refs": [],
+      "expect_violations": []
+    },
+    {
+      "name": "https src is allowed and is not a ref",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": {
+          "img": { "type": "Image", "props": { "src": "https://cdn.example/a.png", "alt": "A" } }
+        },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": []
+    },
+    {
+      "name": "empty and absent src are allowed",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": { "type": "Box", "children": ["a", "b"] },
+          "a": { "type": "Image", "props": { "src": "", "alt": "A" } },
+          "b": { "type": "Image", "props": { "alt": "B", "fit": "cover" } }
+        },
+        "parents": { "root": null, "a": "root", "b": "root" }
+      },
+      "expect_refs": [],
+      "expect_violations": []
+    },
+    {
+      "name": "a link href is not a media src",
+      "doc": {
+        "version": 2,
+        "rootId": "l",
+        "nodes": {
+          "l": { "type": "Link", "props": { "href": "/about", "text": "About" } }
+        },
+        "parents": { "l": null }
+      },
+      "expect_refs": [],
+      "expect_violations": []
+    },
+    {
+      "name": "invalid: absolute path",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "/x.png" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "/x.png" }]
+    },
+    {
+      "name": "invalid: relative path",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "img/x.png" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "img/x.png" }]
+    },
+    {
+      "name": "invalid: data URL",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "data:image/png;base64,iVBORw0KGgo=" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "data:image/png;base64,iVBORw0KGgo=" }]
+    },
+    {
+      "name": "invalid: protocol-relative URL",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "//host/x.png" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "//host/x.png" }]
+    },
+    {
+      "name": "invalid: plain http",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "http://x.example/a.png" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "http://x.example/a.png" }]
+    },
+    {
+      "name": "invalid: broken mlfile",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "mlfile:not-a-uuid" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "mlfile:not-a-uuid" }]
+    },
+    {
+      "name": "invalid: nil UUID is not a ref",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "mlfile:00000000-0000-0000-0000-000000000000" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "mlfile:00000000-0000-0000-0000-000000000000" }]
+    },
+    {
+      "name": "invalid: bare UUID as src",
+      "doc": {
+        "version": 2,
+        "rootId": "img",
+        "nodes": { "img": { "type": "Image", "props": { "src": "0a1b2c3d-aaaa-4aaa-8aaa-00000000000a" } } },
+        "parents": { "img": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "img", "pointer": "/nodes/img/props/src", "value": "0a1b2c3d-aaaa-4aaa-8aaa-00000000000a" }]
+    },
+    {
+      "name": "invalid: src inside a variant and inside ref params, one valid ref beside them",
+      "doc": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": { "type": "Box", "children": ["img", "ref1"] },
+          "img": {
+            "type": "Image",
+            "props": { "src": "mlfile:0a1b2c3d-bbbb-4bbb-8bbb-00000000000b" },
+            "variants": [
+              { "id": "v1", "when": { "when": { "op": "truthy", "path": "user" } }, "props": { "src": "/variant.png" } }
+            ]
+          },
+          "ref1": { "type": "Ref", "props": { "blockId": "pic", "params": { "src": "img/param.png" } } }
+        },
+        "parents": { "root": null, "img": "root", "ref1": "root" }
+      },
+      "expect_refs": ["0a1b2c3d-bbbb-4bbb-8bbb-00000000000b"],
+      "expect_violations": [
+        { "node_id": "img", "pointer": "/nodes/img/variants/0/props/src", "value": "/variant.png" },
+        { "node_id": "ref1", "pointer": "/nodes/ref1/props/params/src", "value": "img/param.png" }
+      ]
+    },
+    {
+      "name": "invalid: src nested in an array of objects, pointer carries the index",
+      "doc": {
+        "version": 2,
+        "rootId": "g",
+        "nodes": {
+          "g": { "type": "Gallery", "props": { "items": [{ "src": "https://cdn.example/ok.png" }, { "src": "/bad.png" }] } }
+        },
+        "parents": { "g": null }
+      },
+      "expect_refs": [],
+      "expect_violations": [{ "node_id": "g", "pointer": "/nodes/g/props/items/1/src", "value": "/bad.png" }]
+    }
+  ]
+}

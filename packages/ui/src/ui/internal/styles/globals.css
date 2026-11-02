@@ -1,0 +1,397 @@
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+
+/*
+  Tailwind v4: источники для сканирования заданы явно, автодетект выключен
+  (`source(none)` выше). Смысл прежний — приложение не обязано держать у себя
+  Tailwind-проводку кита, все утилиты приезжают собранным `sunday-sauna/ui`.
+
+  Автодетект убран по SDL-150: он идёт от корня git по всем неигнорируемым
+  файлам, включая `.md`, поэтому упоминание класса в документации попадало в
+  опубликованный лист пакета. Список ниже — полный, других источников нет.
+
+  Первый путь — `packages/sunday-sauna/src` целиком, а не `src/ui`. До 7 Aug
+  2026 здесь стояло `../**` (то есть `src/ui/internal`), и это было
+  просто неверно: классы `src/studio` и `src/react` в список не входили и
+  генерировались автодетектом. Пока автодетект был включён, ошибка ничего не
+  ломала и потому не была видна — выключение его и вскрыло (пропали, среди
+  прочего, обе arbitrary-сетки оболочки редактора).
+
+  Второй путь — Storybook: превью держит свои классы вне `src`, и без него
+  из листа исчезает `min-h-dvh`.
+
+  Истории исключены (SDL-234, 13 Aug 2026) по той же причине, по которой SDL-150
+  выключил автодетект: показ — не поставка. Витрина набирает демонстрационные
+  утилиты (`max-w-72`, `h-20` под демо-раскладку), они не нужны ни одному
+  потребителю пакета, но попадали в опубликованный лист и делали его нестабильным
+  — `css-artifact.test.ts` начинал требовать пересборку артефакта при добавлении
+  ЛЮБОЙ story. Классы самих историй компилирует превью-пайплайн Storybook:
+  `.storybook/preview.css` возвращает их себе своим `@source`.
+
+  Тесты исключены (SDL-243, 15 Aug 2026) — тот же принцип, доведённый до конца.
+  Сканер Tailwind не отличает прозу от кандидата в утилиты: английское слово в
+  КОММЕНТАРИИ теста, совпавшее с именем класса, попадало в опубликованный лист
+  каждому потребителю. Так `transform` из комментария в `catalog-meta.test.ts`
+  стоил 469 байт мёртвого CSS (утилита + пять @property), а `running`,
+  `visible` и `collapse` из прозы `a11y-contrast`/`consumer-surface` лежали в
+  листе просто потому, что это английские слова. Ни один класс кита в тестах
+  не рождается: `bg-black`/`text-white` там перечислены как ЗАПРЕЩЁННЫЕ
+  (`ui-states.test.ts`), а голые `grid-cols-1..4` и `ring-ring/50` кит пишет
+  только с вариантами (`md:grid-cols-4`, `focus-visible:ring-ring/50`) — те
+  компилируются из `src/ui/**` и остаются. Тесты не рендерятся ни в браузере,
+  ни в Storybook, поэтому возвращать их классы, как истории, некуда и незачем.
+
+  ПРАВИЛО: лист собирается из того, что кит ПОСТАВЛЯЕТ. Показ (истории),
+  проверка (тесты) и документация (`.md`, SDL-150) — не поставка.
+*/
+@source "../../../**/*.{ts,tsx}";
+@source not "../../../**/*.stories.tsx";
+@source not "../../../**/*.test.{ts,tsx}";
+@source "../../../../.storybook/**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /*
+    Шрифты могут задаваться приложением через next/font (CSS variables).
+    Если приложение ничего не проставляет — используем системные фоллбеки.
+  */
+  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji");
+  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-overlay: var(--overlay);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-workspace: var(--workspace);
+  --color-field: var(--field);
+  --color-brand: var(--brand);
+  --color-component: var(--component);
+  --color-selection: var(--selection);
+
+  /* Шкала текста админки (слой 1 редизайна, EP-184, вариант A): caption 11 ·
+     small = text-xs 12 · body = text-sm 14 · title = text-base 16 ·
+     heading = text-xl 20 · display = text-2xl 24. Своя только нижняя ступень. */
+  --text-caption: 11px;
+  --text-caption--line-height: 1.45;
+
+  --radius-sm: var(--radius-small);
+  --radius-md: var(--radius-medium);
+  --radius-lg: var(--radius-large);
+  --radius-xl: var(--radius-xlarge);
+  --radius-2xl: calc(var(--radius-xlarge) + 8px);
+  --radius-3xl: calc(var(--radius-xlarge) + 12px);
+  --radius-4xl: calc(var(--radius-xlarge) + 16px);
+
+  /* Surface-elevation shadows (макет: --sh1 карточки, --sh2 модалки/hover)
+     и внутренняя тень поля (--ifield). Кастомные утилиты shadow-surface /
+     shadow-elevated / shadow-field — Tailwind-шкалу shadow-* не трогаем. */
+  --shadow-surface: var(--surface-shadow);
+  --shadow-elevated: var(--elevated-shadow);
+  --shadow-field: var(--field-shadow);
+
+  /* Row height из макета (--row 40px): высота строк nav/списков. */
+  --spacing-row: var(--row);
+}
+
+/*
+  Слой 1 — публичная тема (:root / .dark).
+  Это дефолт для клиентских сайтов: нейтральная shadcn-палитра, как и была.
+  Токены макета Studio сюда НЕ прошиваются (решение EP-15: «студия получает
+  их скоупом, клиентские сайты — нет»).
+*/
+:root {
+  --radius: 0.625rem;
+  --radius-small: calc(var(--radius) - 4px);
+  --radius-medium: calc(var(--radius) - 2px);
+  --radius-large: var(--radius);
+  --radius-xlarge: calc(var(--radius) + 4px);
+  --background: oklch(1 0 none);
+  --foreground: oklch(0.17763777307657064 0 none);
+  --card: oklch(1 0 none);
+  --card-foreground: oklch(0.17763777307657064 0 none);
+  --popover: oklch(1 0 none);
+  --popover-foreground: oklch(0.17763777307657064 0 none);
+  --primary: oklch(0.17763777307657064 0 none);
+  --primary-foreground: oklch(0.9970251916618014 0 none);
+  --secondary: oklch(0.9701507725365187 0 none);
+  --secondary-foreground: oklch(0.17763777307657064 0 none);
+  --muted: oklch(0.9701507725365187 0 none);
+  --muted-foreground: oklch(0.6500412692222284 0 none);
+  --tertiary-foreground: oklch(0.7256 0.0129 258.37);
+  --accent: oklch(0.9701507725365187 0 none);
+  --accent-foreground: oklch(0.17763777307657064 0 none);
+  --destructive: oklch(0.5580080404667971 0.2136574233307827 19.400217552292876);
+  --destructive-foreground: oklch(0.9970251916618014 0 none);
+  --border: oklch(0.922 0 0);
+  --border-strong: oklch(0.87 0 0);
+  --input: oklch(0.922 0 0);
+  --field: var(--background);
+  --ring: oklch(0.7731043505289305 0 none);
+  --workspace: oklch(0.94 0 0);
+  --overlay: oklch(0.145 0.002 286 / 50%);
+  /* Статусные пары: базовый цвет — индикаторы и подложки с альфой
+     (bg-success/15), *-foreground — читаемый текст на такой подложке.
+     Значения из макета (statusStyle / pubBadgeStyle). */
+  --success: #3fb37f;
+  --success-foreground: #2e8b63;
+  --warning: #d69e2e;
+  --warning-foreground: #946312;
+  /* В макете info-роли нет — взят brand-голубой + читаемая тёмная пара. */
+  --info: #2fa3da;
+  --info-foreground: #1a6e99;
+  --brand: #2fa3da;
+  --row: 40px;
+  --surface-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --elevated-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --field-shadow: none;
+}
+
+.dark {
+  --background: oklch(0.17763777307657064 0 none);
+  --foreground: oklch(0.9970251916618014 0 none);
+  --card: oklch(0.23503112514957922 0 none);
+  --card-foreground: oklch(0.9970251916618014 0 none);
+  --popover: oklch(0.23503112514957922 0 none);
+  --popover-foreground: oklch(0.9970251916618014 0 none);
+  --primary: oklch(0.9701507725365187 0 none);
+  --primary-foreground: oklch(0.17763777307657064 0 none);
+  --secondary: oklch(0.285017403997646 0 none);
+  --secondary-foreground: oklch(0.9970251916618014 0 none);
+  --muted: oklch(0.285017403997646 0 none);
+  --muted-foreground: oklch(0.7731043505289305 0 none);
+  --tertiary-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.285017403997646 0 none);
+  --accent-foreground: oklch(0.9970251916618014 0 none);
+  --destructive: oklch(0.6732453219060429 0.21434353166962453 24.465399514463886);
+  --destructive-foreground: oklch(0.9970251916618014 0 none);
+  --border: oklch(1 0 0 / 10%);
+  --border-strong: oklch(1 0 0 / 18%);
+  --input: oklch(1 0 0 / 15%);
+  --field: var(--background);
+  --ring: oklch(0.6500412692222284 0 none);
+  --workspace: oklch(0.22 0 0);
+  --overlay: oklch(0.145 0.002 286 / 60%);
+}
+
+/*
+  Слой 2 — тема админской поверхности. Скоуп — атрибут data-surface на её
+  корне; Storybook проставляет его декоратором, конструктор — на обёртке
+  Studio. Клиентские сайты атрибут не ставят и этот слой не видят: кит
+  рендерит и авторский контент тоже, и там тема принадлежит автору сайта,
+  а не админке. Поэтому скоуп остаётся, хотя режим теперь один.
+
+  ПАЛИТРА — СТОКОВЫЙ SHADCN НА БАЗЕ `zinc` (решение владельца, 10 Aug 2026).
+  До этого слой воспроизводил 26 токенов макета (02-design-spec.md). Оказалось,
+  что flat-набор макета и есть shadcn zinc: #f4f4f5 = zinc-100, #e4e4e7 =
+  zinc-200, #d4d4d8 = zinc-300, #18181b = zinc-900. Расходились только тексты —
+  макет брал синеватые #1e2330 / #5a6072 / #9097a6 — и радиусы. Их и привели
+  к стоку. Второй режим (soft, нейморфизм) удалён целиком: 13 surface-токенов,
+  двойные тени и утопленные поля. Он давал контраст поверхностей 1.07:1 при
+  норме WCAG 3:1, то есть был нерабочим и до этого решения.
+
+  ДВА ОСОЗНАННЫХ ОТСТУПЛЕНИЯ ОТ СТОКА, оба ради слоя D — не трогать, не сверив
+  с src/__tests__/a11y-contrast.test.ts:
+
+  1. --muted-foreground = zinc-600, а не сток zinc-500. Сток даёт 4.40:1 на
+     zinc-100 при норме AA 4.5:1 — вторичный текст на приглушённом фоне
+     формально не читается. Это дефект самого shadcn, не наш. zinc-600
+     даёт 7.03:1.
+  2. --ring = ink, а не сток. Макет ставил сюда `asoft`, что композитится
+     в 1.13:1 при `ring-ring/50`, которым кит и красит фокус, — индикатор
+     присутствует и невидим. Ink даёт 3.36:1 композитом.
+
+  Не перенесено из макета осознанно: --pad/--gap (объявлены, не используются),
+  дубль --fd/--ft схлопнут в один --font-sans.
+
+  ТЁМНАЯ ВЕРСИЯ (решение владельца, 10 Aug 2026, SDL-183): у макета тёмного
+  варианта нет, но выдумывать его и не нужно — палитра стоковая, и тёмный
+  набор берётся из стока shadcn zinc как есть (блок `.dark [data-surface]`
+  ниже). Макет остаётся эталоном раскладки и состава экранов, но не цвета.
+  Скоуп — класс `.dark`, тот же механизм, что у публичной темы и у
+  `@custom-variant dark` компонентов кита: конструктор ставит класс через
+  ThemeProvider кита (attribute="class", defaultTheme="system"), медиа-скоупа
+  у слоя нет — иначе `dark:`-утилиты компонентов не сработали бы.
+*/
+[data-surface] {
+  --foreground: #09090b;
+  --card-foreground: #09090b;
+  --popover-foreground: #09090b;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --secondary-foreground: #18181b;
+  /* zinc-600, не сток zinc-500 — см. отступление 1 в шапке блока. */
+  --muted-foreground: #52525b;
+  --tertiary-foreground: #a1a1aa;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  /* ink, не сток — см. отступление 2 в шапке блока. */
+  --ring: #18181b;
+  /*
+    Слой 1 редизайна (EP-184, принят владельцем 28 Oct 2026). Фирменный синий —
+    цвет логотипа: #2fa3da на белом даёт 2.85:1 при норме 3:1 для рамки
+    выделения, #008ED0 — 3.63:1. В тёмной остаётся #2fa3da (7.0:1).
+    component — фиолетовый значок компонента, selection — рамка и ярлык
+    выделения на холсте (оба приняты в макетах компонентов, флоу 1–3).
+  */
+  --brand: #008ed0;
+  --selection: var(--brand);
+  /* info — фирменный синий (EP-185): точка статуса «info» брала главный цвет. */
+  --info: var(--brand);
+  --component: #7c3aed;
+  --row: 40px;
+  --overlay: rgba(10, 10, 12, 0.5);
+
+  --background: #ffffff;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f4f4f5;
+  --muted: #f4f4f5;
+  --workspace: #f4f4f5;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+  --input: #e4e4e7;
+  --field: #ffffff;
+  --field-shadow: none;
+  --radius-small: 6px;
+  --radius-medium: 8px;
+  --radius-large: 10px;
+  --radius-xlarge: 14px;
+  --surface-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --elevated-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+/*
+  Тёмный набор админской поверхности — стоковый shadcn zinc dark (см. шапку
+  слоя 2). Селектор `.dark [data-surface]` (0,2,0) обязан бить и `.dark`
+  (публичный тёмный), и `[data-surface]` (светлый админский) — оба (0,1,0).
+  Держать ПОСЛЕ блока `[data-surface]`: theme-tokens.test.ts находит светлый
+  блок первым indexOf, и `.dark [data-surface] {` содержит его как подстроку.
+
+  Радиусы, --row, тени и статусные пары не переобъявляются — наследуются от
+  светлого блока. Два отступления зеркалят светлые (см. a11y-contrast.test.ts):
+
+  1. --muted-foreground = zinc-400 — сток; на тёмном zinc-800 он даёт 5.8:1,
+     дефект стока (4.40:1) существует только в светлой паре.
+  2. --ring = zinc-50, не сток zinc-500: кит красит фокус `ring-ring/50`, и
+     стоковое значение композитится в невидимый индикатор так же, как в
+     светлой теме. Зеркало светлого ink.
+*/
+.dark [data-surface] {
+  --foreground: #fafafa;
+  --card-foreground: #fafafa;
+  --popover-foreground: #fafafa;
+  --primary: #e4e4e7;
+  --primary-foreground: #18181b;
+  --secondary-foreground: #fafafa;
+  --muted-foreground: #a1a1aa;
+  --tertiary-foreground: #71717a;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  /* zinc-50, не сток — см. отступление 2 в шапке блока. */
+  --ring: #fafafa;
+  --brand: #2fa3da;
+  --component: #a78bfa;
+  /* Тёмные пары статусов (EP-184): светлые *-foreground на тёмном не читаются. */
+  --success-foreground: #6ee7b7;
+  --warning-foreground: #fcd34d;
+  --info-foreground: #7dd3fc;
+  --overlay: rgba(10, 10, 12, 0.7);
+
+  --background: #09090b;
+  --card: #18181b;
+  --popover: #18181b;
+  --secondary: #27272a;
+  --muted: #27272a;
+  --workspace: #09090b;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --input: rgba(255, 255, 255, 0.15);
+  --field: #09090b;
+  --field-shadow: none;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/*
+  «Меньше движения» (SDL-756). Человек, включивший в системе
+  prefers-reduced-motion, не получает выездов и увеличений: Dialog,
+  AlertDialog, Popover, DropdownMenu, Select, Tooltip проявляются коротким
+  opacity — 150 мс, ease-out, без overshoot.
+
+  Механика — через переменные tw-animate-css, а не через `animation: none`:
+  keyframes `enter`/`exit` собирают transform из --tw-{enter,exit}-* , и
+  обнуление сдвига/масштаба/поворота оставляет в них только opacity. Сама
+  анимация при этом остаётся — Radix Presence ждёт её `animationend`, чтобы
+  размонтировать закрытое; длительность режется до 150 мс поверх
+  duration-* компонента (у Dialog — 200).
+
+  Селектор по подстроке класса ловит любые вариантные формы
+  (`data-[state=open]:animate-in`, `data-open:animate-in`) и новые
+  компоненты, если они анимируются теми же утилитами. Sheet сегодня не
+  анимируется вовсе: его варианты `data-open:`/`data-closed:` ждут атрибутов
+  data-open/data-closed, а Radix ставит data-state (замер SDL-756, 8 Oct
+  2026) — когда варианты починят, правило подхватит его без правки здесь.
+
+  Правило вне слоёв: неслоёные стили бьют @layer utilities в обоих листах
+  страницы (кита и приложения) независимо от специфичности.
+
+  Тосты sonner: библиотека сама гасит при reduce все переходы
+  (`transition: none !important`), тост появляется рывком. Здесь возвращается
+  только opacity — тот же короткий fade; специфичность (0,2,0) нужна, чтобы
+  перебить её !important (0,1,0).
+*/
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-in"],
+  [class*="animate-out"] {
+    --tw-enter-opacity: 0;
+    --tw-enter-translate-x: 0;
+    --tw-enter-translate-y: 0;
+    --tw-enter-scale: 1;
+    --tw-enter-rotate: 0;
+    --tw-enter-blur: 0;
+    --tw-exit-opacity: 0;
+    --tw-exit-translate-x: 0;
+    --tw-exit-translate-y: 0;
+    --tw-exit-scale: 1;
+    --tw-exit-rotate: 0;
+    --tw-exit-blur: 0;
+    animation-duration: 150ms;
+    animation-timing-function: ease-out;
+  }
+
+  [data-sonner-toaster] [data-sonner-toast] {
+    transition: opacity 150ms ease-out !important;
+  }
+}

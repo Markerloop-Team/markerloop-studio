@@ -1,0 +1,18 @@
+/* Storybook's single CSS entry: pulls the library stylesheet and layers
+   preview-only overrides on top. Never move the overrides into the
+   library globals.
+
+   storybook-addon-pseudo-states forces pseudo-classes by rewriting
+   selectors; Tailwind v4's built-in `hover` variant is media-gated
+   ((hover: hover)), which the addon's rewrite cannot force. Redefining
+   the variant to the bare pseudo-class HERE keeps the trick scoped to
+   the preview iframe — shipping it in the library would change hover
+   behaviour on touch devices for every consumer. */
+@import "../src/ui/internal/styles/globals.css";
+
+/* Истории исключены из библиотечного листа (globals.css, SDL-234): их утилиты
+   существуют ради показа, а не ради потребителя пакета. Здесь они возвращаются —
+   стенду они нужны, иначе демо-раскладки поедут. */
+@source "../src/**/*.stories.tsx";
+
+@custom-variant hover (&:hover);

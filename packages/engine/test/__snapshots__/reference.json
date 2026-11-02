@@ -1,0 +1,33 @@
+{
+  "source": "sunday-sauna apps/studio/src/engine",
+  "commit": "1e5cf52",
+  "divergences": {
+    "_divergences_are": "Where OUR engine deliberately differs from the reference. A divergence declares the RULE of the difference, not the expected output: `strip` is a regex that removes exactly what we add, and the suite requires the remainder to equal the reference BYTE FOR BYTE. Nothing here stores a rendered blob, so there is nothing to re-record and no place to hide an unrelated regression — any other drift breaks the equality. An entry that strips nothing in any of its cases fails as stale.",
+    "unknown-type-placeholder": {
+      "task": "SDL-608",
+      "reason": "A node whose type is not in the registry draws a placeholder instead of returning null. The reference loses the node and its whole subtree silently, which is how a published page goes blank when an export is renamed away.",
+      "strip": "<div class=\"ss-unknown-type-placeholder\"[^>]*>[^<]*</div>",
+      "cases": [
+        "page / admin, kk, permissions, link + icon context",
+        "page / guest, ru, no can()",
+        "page / no context",
+        "page / editable",
+        "server Sauna (react/server) with schema + extra context",
+        "client Sauna (react) inside SaunaProvider"
+      ]
+    }
+  },
+  "cases": {
+    "page / admin, kk, permissions, link + icon context": "<div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\"><h1>Welcome</h1><p>Admin only</p><p>Қазақша промо</p><a href=\"/site/about\">About us</a><span><svg data-icon=\"star\"></svg>rated</span><div data-p-role=\"list\"><p>first</p><p>second</p><p>third</p></div></div>",
+    "page / guest, ru, no can()": "<div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\"><h1>Welcome</h1><p>Guest only</p><p>Промо по-русски</p><a href=\"/ru/about\">About us</a><span><star></star>rated</span><div data-p-role=\"list\"><p>first</p><p>third</p></div></div>",
+    "page / no context": "<div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\"><h1>Welcome</h1><p>Guest only</p><p>Default promo</p><a href=\"about\">About us</a><span><star></star>rated</span><div data-p-role=\"list\"><p>first</p><p>third</p></div></div>",
+    "page / editable": "<div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\" data-sauna-node-id=\"root\"><h1 data-sauna-node-id=\"title\">Welcome</h1><p data-sauna-node-id=\"admin\">Admin only</p><p data-sauna-node-id=\"promo\">Қазақша промо</p><a href=\"/site/about\" data-sauna-node-id=\"cta\">About us</a><span><svg data-icon=\"star\"></svg>rated</span><div data-p-role=\"list\" data-sauna-node-id=\"list\"><p data-sauna-node-id=\"i1\">first</p><p data-sauna-node-id=\"i2\">second</p><p data-sauna-node-id=\"i3\">third</p></div></div>",
+    "refs / blocks loaded with loadBlockRefs": "<div><div data-p-variant=\"hero\"><h2>Default title</h2><p>Default subtitle</p></div><div data-p-variant=\"hero\"><h2>Custom title</h2><p>42</p></div><div data-p-variant=\"outer\"><div data-p-variant=\"hero\"><h2>Nested hero</h2><p>Default subtitle</p></div></div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"gone\">Component «gone» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"no-block-id\">Component reference without a blockId</div><div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"cycle\" data-sauna-ref-block=\"self\">Component «self» references itself</div></div></div>",
+    "refs / editable": "<div data-sauna-node-id=\"r\"><div data-p-variant=\"hero\" data-sauna-node-id=\"hero1\"><h2>Default title</h2><p>Default subtitle</p></div><div data-p-variant=\"hero\" data-sauna-node-id=\"hero2\"><h2>Custom title</h2><p>42</p></div><div data-p-variant=\"outer\" data-sauna-node-id=\"outer\"><div data-p-variant=\"hero\"><h2>Nested hero</h2><p>Default subtitle</p></div></div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"gone\" data-sauna-node-id=\"missing\">Component «gone» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"no-block-id\" data-sauna-node-id=\"empty\">Component reference without a blockId</div><div data-sauna-node-id=\"self\"><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"cycle\" data-sauna-ref-block=\"self\">Component «self» references itself</div></div></div>",
+    "refs / no blocks map": "<div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"hero\">Component «hero» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"hero\">Component «hero» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"outer\">Component «outer» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"gone\">Component «gone» not found</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"no-block-id\">Component reference without a blockId</div><div class=\"ss-ref-placeholder\" data-sauna-ref-placeholder=\"missing\" data-sauna-ref-block=\"self\">Component «self» not found</div></div>",
+    "legacy v1 migrated / signed in": "<div data-p-legacy=\"true\"><h1>From v1</h1><p>hidden for guests</p><div><p>deep</p></div></div>",
+    "legacy v1 migrated / guest": "<div data-p-legacy=\"true\"><h1>From v1</h1><div><p>deep</p></div></div>",
+    "server Sauna (react/server) with schema + extra context": "<div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\"><h1>Welcome</h1><p>Guest only</p><p>Қазақша промо</p><a href=\"/ru/about\">About us</a><span><star></star>rated</span><div data-p-role=\"list\"><p>first</p><p>third</p></div></div>",
+    "client Sauna (react) inside SaunaProvider": "<div style=\"position:relative\"><div data-p-gap=\"4\" data-p-layout=\"{&quot;dir&quot;:&quot;col&quot;}\"><h1>Welcome</h1><p>Admin only</p><p>Қазақша промо</p><a href=\"/site/about\">About us</a><span><svg data-icon=\"star\"></svg>rated</span><div data-p-role=\"list\"><p>first</p><p>second</p><p>third</p></div></div></div>"
+  }
+}

@@ -1,0 +1,10 @@
+# apps/site (SDL-685)
+/node_modules
+/.next/
+.env*
+*.tsbuildinfo
+next-env.d.ts
+
+# Playwright project `site`
+/e2e/.artifacts/
+/playwright-report/

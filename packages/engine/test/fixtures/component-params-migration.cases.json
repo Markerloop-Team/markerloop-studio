@@ -1,0 +1,523 @@
+{
+  "_comment": [
+    "SDL-723: shared fixture — an Element migration reaching a Component's params. The engine test replays it through",
+    "saunaMigrateComponent; the Go twin (pages-service, internal/document/testdata) replays it verbatim.",
+    "`definitions`: Elements as element-catalog.json ships them ({type, propsVersion, migrations}); a node whose type is not",
+    "listed (Stack, Ref) is left alone. Each case: `component` -> `expect_component` (nodes migrated to the definition's",
+    "propsVersion, params[].prop following rename / one-segment move; a param whose prop is removed or moved into a nested",
+    "path is dropped), `expect_removed_params` (names, in params order). `page` -> `expect_page`: the page referencing",
+    "`block_id` is NOT rewritten (expect_page == page): Ref.props.params is keyed by param NAME, so a rename needs nothing,",
+    "and a value whose param was removed stays as an orphan (SDL-501: never dropped silently; refParamOrphans reports it).",
+    "Compare as JSON values (key order free)."
+  ],
+  "definitions": [
+    {
+      "type": "ParamProbe",
+      "propsVersion": 3,
+      "migrations": [
+        {
+          "steps": [
+            {
+              "op": "rename",
+              "from": "title",
+              "to": "heading"
+            },
+            {
+              "op": "remove",
+              "key": "legacy"
+            },
+            {
+              "op": "move",
+              "from": "color",
+              "to": "style.color"
+            },
+            {
+              "op": "rename",
+              "from": "style.align",
+              "to": "justify"
+            }
+          ]
+        },
+        {
+          "steps": [
+            {
+              "op": "rename",
+              "from": "heading",
+              "to": "headline"
+            },
+            {
+              "op": "setDefault",
+              "key": "size",
+              "value": "m"
+            },
+            {
+              "op": "mapValue",
+              "key": "note",
+              "map": {
+                "old": "new"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "name": "rename follows, remove and nested move drop the param, unknown node and orphan stay",
+      "block_id": "11111111-1111-4111-8111-111111111111",
+      "component": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Stack",
+            "children": [
+              "n1",
+              "n2"
+            ]
+          },
+          "n1": {
+            "type": "ParamProbe",
+            "props": {
+              "title": "Hi",
+              "legacy": true,
+              "color": "red",
+              "note": "old",
+              "style": {
+                "align": "left"
+              }
+            }
+          },
+          "n2": {
+            "type": "ParamProbe",
+            "propsVersion": 2,
+            "props": {
+              "heading": "Yo",
+              "title": "stays"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "n1": "root",
+          "n2": "root"
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "n1",
+            "prop": "title",
+            "label": "Title"
+          },
+          {
+            "name": "legacy",
+            "nodeId": "n1",
+            "prop": "legacy",
+            "type": "boolean"
+          },
+          {
+            "name": "tone",
+            "nodeId": "n1",
+            "prop": "color"
+          },
+          {
+            "name": "note",
+            "nodeId": "n1",
+            "prop": "note",
+            "default": "old"
+          },
+          {
+            "name": "style",
+            "nodeId": "n1",
+            "prop": "style"
+          },
+          {
+            "name": "second",
+            "nodeId": "n2",
+            "prop": "heading"
+          },
+          {
+            "name": "second_title",
+            "nodeId": "n2",
+            "prop": "title"
+          },
+          {
+            "name": "box",
+            "nodeId": "root",
+            "prop": "gap"
+          },
+          {
+            "name": "orphan",
+            "nodeId": "gone",
+            "prop": "title"
+          }
+        ]
+      },
+      "expect_component": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Stack",
+            "children": [
+              "n1",
+              "n2"
+            ]
+          },
+          "n1": {
+            "type": "ParamProbe",
+            "propsVersion": 3,
+            "props": {
+              "headline": "Hi",
+              "note": "new",
+              "style": {
+                "justify": "left",
+                "color": "red"
+              },
+              "size": "m"
+            }
+          },
+          "n2": {
+            "type": "ParamProbe",
+            "propsVersion": 3,
+            "props": {
+              "headline": "Yo",
+              "title": "stays",
+              "size": "m"
+            }
+          }
+        },
+        "parents": {
+          "root": null,
+          "n1": "root",
+          "n2": "root"
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "n1",
+            "prop": "headline",
+            "label": "Title"
+          },
+          {
+            "name": "note",
+            "nodeId": "n1",
+            "prop": "note",
+            "default": "old"
+          },
+          {
+            "name": "style",
+            "nodeId": "n1",
+            "prop": "style"
+          },
+          {
+            "name": "second",
+            "nodeId": "n2",
+            "prop": "headline"
+          },
+          {
+            "name": "second_title",
+            "nodeId": "n2",
+            "prop": "title"
+          },
+          {
+            "name": "box",
+            "nodeId": "root",
+            "prop": "gap"
+          },
+          {
+            "name": "orphan",
+            "nodeId": "gone",
+            "prop": "title"
+          }
+        ]
+      },
+      "expect_removed_params": [
+        "legacy",
+        "tone"
+      ],
+      "page": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Stack",
+            "children": [
+              "r1",
+              "r2",
+              "r3"
+            ]
+          },
+          "r1": {
+            "type": "Ref",
+            "props": {
+              "blockId": "11111111-1111-4111-8111-111111111111",
+              "params": {
+                "title": "A",
+                "legacy": false,
+                "tone": "blue",
+                "note": "n"
+              }
+            },
+            "member": {
+              "props": {
+                "params": {
+                  "legacy": true
+                }
+              }
+            },
+            "screens": {
+              "mobile": {
+                "props": {
+                  "params": {
+                    "tone": "green",
+                    "title": "M"
+                  }
+                }
+              }
+            },
+            "variants": [
+              {
+                "id": "v1",
+                "when": {
+                  "permission": "pages:read"
+                },
+                "props": {
+                  "params": {
+                    "tone": "red"
+                  }
+                }
+              }
+            ]
+          },
+          "r2": {
+            "type": "Ref",
+            "props": {
+              "blockId": "22222222-2222-4222-8222-222222222222",
+              "params": {
+                "legacy": true,
+                "tone": "kept"
+              }
+            }
+          },
+          "r3": {
+            "type": "Ref",
+            "props": {
+              "blockId": "22222222-2222-4222-8222-222222222222",
+              "params": {
+                "tone": "kept"
+              }
+            },
+            "variants": [
+              {
+                "id": "v2",
+                "when": {
+                  "permission": "pages:read"
+                },
+                "props": {
+                  "blockId": "11111111-1111-4111-8111-111111111111",
+                  "params": {
+                    "tone": "x",
+                    "title": "y"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "parents": {
+          "root": null,
+          "r1": "root",
+          "r2": "root",
+          "r3": "root"
+        }
+      },
+      "expect_page": {
+        "version": 2,
+        "rootId": "root",
+        "nodes": {
+          "root": {
+            "type": "Stack",
+            "children": [
+              "r1",
+              "r2",
+              "r3"
+            ]
+          },
+          "r1": {
+            "type": "Ref",
+            "props": {
+              "blockId": "11111111-1111-4111-8111-111111111111",
+              "params": {
+                "title": "A",
+                "legacy": false,
+                "tone": "blue",
+                "note": "n"
+              }
+            },
+            "member": {
+              "props": {
+                "params": {
+                  "legacy": true
+                }
+              }
+            },
+            "screens": {
+              "mobile": {
+                "props": {
+                  "params": {
+                    "tone": "green",
+                    "title": "M"
+                  }
+                }
+              }
+            },
+            "variants": [
+              {
+                "id": "v1",
+                "when": {
+                  "permission": "pages:read"
+                },
+                "props": {
+                  "params": {
+                    "tone": "red"
+                  }
+                }
+              }
+            ]
+          },
+          "r2": {
+            "type": "Ref",
+            "props": {
+              "blockId": "22222222-2222-4222-8222-222222222222",
+              "params": {
+                "legacy": true,
+                "tone": "kept"
+              }
+            }
+          },
+          "r3": {
+            "type": "Ref",
+            "props": {
+              "blockId": "22222222-2222-4222-8222-222222222222",
+              "params": {
+                "tone": "kept"
+              }
+            },
+            "variants": [
+              {
+                "id": "v2",
+                "when": {
+                  "permission": "pages:read"
+                },
+                "props": {
+                  "blockId": "11111111-1111-4111-8111-111111111111",
+                  "params": {
+                    "tone": "x",
+                    "title": "y"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "parents": {
+          "root": null,
+          "r1": "root",
+          "r2": "root",
+          "r3": "root"
+        }
+      }
+    },
+    {
+      "name": "node already at the current version: nothing moves, nothing is removed",
+      "block_id": "11111111-1111-4111-8111-111111111111",
+      "component": {
+        "version": 2,
+        "rootId": "n1",
+        "nodes": {
+          "n1": {
+            "type": "ParamProbe",
+            "propsVersion": 3,
+            "props": {
+              "headline": "Hi",
+              "title": "t"
+            }
+          }
+        },
+        "parents": {
+          "n1": null
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "n1",
+            "prop": "title"
+          }
+        ]
+      },
+      "expect_component": {
+        "version": 2,
+        "rootId": "n1",
+        "nodes": {
+          "n1": {
+            "type": "ParamProbe",
+            "propsVersion": 3,
+            "props": {
+              "headline": "Hi",
+              "title": "t"
+            }
+          }
+        },
+        "parents": {
+          "n1": null
+        },
+        "params": [
+          {
+            "name": "title",
+            "nodeId": "n1",
+            "prop": "title"
+          }
+        ]
+      },
+      "expect_removed_params": [],
+      "page": {
+        "version": 2,
+        "rootId": "r1",
+        "nodes": {
+          "r1": {
+            "type": "Ref",
+            "props": {
+              "blockId": "11111111-1111-4111-8111-111111111111",
+              "params": {
+                "title": "A"
+              }
+            }
+          }
+        },
+        "parents": {
+          "r1": null
+        }
+      },
+      "expect_page": {
+        "version": 2,
+        "rootId": "r1",
+        "nodes": {
+          "r1": {
+            "type": "Ref",
+            "props": {
+              "blockId": "11111111-1111-4111-8111-111111111111",
+              "params": {
+                "title": "A"
+              }
+            }
+          }
+        },
+        "parents": {
+          "r1": null
+        }
+      }
+    }
+  ]
+}
